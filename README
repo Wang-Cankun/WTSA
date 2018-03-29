@@ -1,0 +1,123 @@
+==================
+Usage
+==================
+This software provides a tool capable of accurately extracting cis-regulatory motifs with their correct lengths even in thousands of promoters from a whole prokaryotic genome. For a fasta file containing promoters, the program outputs a number of profiles, with increasing order of their pvalue, containing the binding sites of specific motifs.
+
+Certain parts of the code uses open-source data structure library codes, including:
+- fib <http://resnet.uoregon.edu/~gurney_j/jmpc/fib.html>, copyright information in fib.c
+- Mark A. Weiss's data structure codes <http://www.cs.fiu.edu/~weiss/>
+
+==================
+Installation
+==================
+Simply put "BoBro1.0.tar.gz" in any directory,
+
+$ tar zxvf BoBro1.0.tar.gz
+
+enter the folder "BoBro1.0" and type "make" then the compiled codes are within the same directory as the source.
+
+==================
+Inputs and outputs
+==================
+The major program in the provided package is `BoBro`, it can parse standard fasta format of files (allowing squences with different length), and example file are provided. 
+
+To see help and look at all available options.
+
+$ ./BoBro -h (./BoBro)
+
+Take a look at `example` (fasta file) first. And try to run BoBro under a specific length, now we can handle motif length more than or equal to 5 (controlled in write_block.c line 256).
+
+$ ./BoBro -i example -l 14
+
+For each input file under a specific length l, our program generates a output file, namely, '.closures'file. In '.closures' file, it provides all the closures, representing motif profiles, in the increasing order of their pvalues.
+
+Then try to run BoBro recognizing the correct length in the scope [L,U] by our program automatically
+
+$ ./BoBro -i example -L 14 -U 16
+
+L and U are low boundary and up boundary of scope of motif length separately. We use this pair of parameters when we do not know the accurate length in advance. We sort the top n closures under each specific length in the increasing order of their pvalues and save the top o clousres in the ".closures" file. Especially, when the input value of L equals to U, it is equivalent to finding motifs in a specific length. '$ ./BoBro -i example -L 14 -U 14' is equivalent to '$ ./BoBro -i example -l 14'.
+
+==================
+Changelog
+==================
+Version 0.1
+1.	prototype of algorithm
+
+Version 0.3
+1.	we fix the memory allocation problem so that we can get uniform result if we compile BoBro in different environment.
+
+Version 0.4
+1.	we combine the pvalue.cpp to the main program so that the executable program 'BoBro' can run in any another folder.
+2.	we do not output the .seeds file now - Jan. 25, 2010
+
+Version 0.5
+- we add the annotation of each motif in closures base on a annotation file 
+        $./BoBro -i example -j example_anno
+
+Version 0.6
+- add a parameter -u which is the similarity between two closures so that we output the closures any two of which having a similarity score less than u, i.e. we clean up redundant closures. Thus we can guarantee that the output clousres represent different motif pattern.
+	$./BoBro -i example -u 0.7
+
+Version 0.7
+1.	users can activite the palindromic (5'-GAATTC-3'; 3'-CTTAAG-5') function by -P, when finding motif. 
+	$./BoBro -i example -P
+2.	 users can find mirror motifs (CTGGCGGTC) by typing -M, when finding motif.
+	$./BoBro -i example -M
+3.	add the parameter -G and -C which are prefer to find TFBSs corresponding to global and local TFs.
+	$./BoBro -i example -G
+	$./BoBro -i example -C
+4.	this version combine the three model of motif: conserve on two ends, conserve on middle and conserve overall by default under each model we get the top o and at last we output the top o closures out of 3o closures with smallest pvalue. Users can go to previous version (just considering classical pattern) by a parameter -F,
+	$./BoBro -i example -F
+
+Version 0.8
+1.	we add a new parameter -R to adjust the step from L to U.
+	$./BoBro -i example -L 14 -U 16 -R 2 (omitting length 15)
+2.	we adopt the fasta file with a specific weight for each sequence, see example_weight as an example.
+	$./BoBro -i example_weight -W
+3.	we add a new parameter -e to control motif seeds enlarge times in write_block.c.
+	$./BoBro -i example -e 3
+4.	we add two parameters -a -N to control the output closures' size -a [4,6] -N [0,3], the larger of a and N the smaller of the closures' size
+	$./BoBro -i example -a 4 -N 0
+5.	add a parameter -s to control simulation times when expand a seed to a closure.
+	$./BoBro -i example -s 5
+6.	add parameter -A as a flag to calculate pvalue approximately.
+	$./BoBro -i example -A
+7.	add the parameter -E as a flag to expand the closures with the smallest pvalue.
+	$./BoBro -i example -E
+
+Version 0.9 (suitable for large scale data like human genome)
+1.	fix the problem of promoter's length being less than the input motif length.
+2.	there exist differences between example.closures and example.closures.1 (two results of the same data using one BoBro)---- using -F can get the exactly results
+3.	free the unuseful space (d1,d2,d3,d4)---- allocate and free d2 in the pairwise_comparison_second 
+4.	to save the space we adjust 'double' to 'float' in stuct.h
+5.	the pvalue will be 0 when the data scale is large (when more than one closure having pvalue 0)---- Change data type of pvalue from 'double' to 'long double'
+
+Version 1.0 (20110125)
+1.	The makefile_mac (makefile_mac_10.6.5) is used when BoBro run on a MAC system.
+2.	The folder BoBro_cmake is a BoBro version with CMake.
+3.	To get the seeds by 
+	./BoBro -i example -F -N 7 -e 1 
+4.	Do not consider two ends weight enhance by
+	./BoBro -i example -F -w 1 
+5.	Add the zscore to evaluate the enrichment of each motif seed
+	 ./BoBro -i example -l 14 -F -Z NC_000913.fna -b 0.95 -e 1
+6.	Now run ecoli whole genome need 7 hours, 30% of previous time complexity by change ATCG to 0123
+7.	Now we can check the palindromic property of input sequences
+	./BoBro -i example.palindromic -q 20 > 11
+
+Version 1.1 (20120403)
+1.	To find a kind of interupt palindromic pattern (Bill studier)
+	./AA-GC -i Ecoli_intergenic_sequences -v 7 -x 5 -q 33 | sed -e '1,3d' > Ecoli-AA-GC-7-5-5
+2.	To find locations for a specific pattern
+Need To do:
+1.	change int to short to decrease time complexity
+2.	decrease if() in iteration in comparison sequences
+
+==================
+Contact
+==================
+Any questions, problems, bugs are welcome and should be dumped to
+Qin Ma <maqin@csbl.bmb.uga.edu>
+Creation: July. 01, 2010
+
+#---------------------------------------------------------------------------#
