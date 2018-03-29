@@ -51,5 +51,5 @@ Migrated from BoBro2-C-06062017
 ## Contact
 
 Any questions, problems, bugs are welcome and should be dumped to
-Cankun Wang <cankun.wang@sdstate.edu>
+Cankun Wang <maqin@csbl.bmb.uga.edu>
 
