@@ -23,9 +23,9 @@ void verboseDot()
 /* Print "i-am-alive" dot */
 
 {
-	uglyTime("dot", s_rows);
-	/*putchar('.');
-	fflush(stdout);*/
+	/*uglyTime(".", s_rows);*/
+	putchar('.');
+	fflush(stdout);
 }
 
 void err(char *format, ...)
@@ -141,7 +141,7 @@ int dsIntersect(struct dyStack *ds1, struct dyStack *ds2)
 {
 	int cnt = 0;
 	int i;
-
+	
 	for (i=0; i<dsSize(ds1); i++)
 		if (isInStack(ds2, ds1->items[i])) cnt++;
 

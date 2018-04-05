@@ -148,7 +148,7 @@ void make_graph (const char* fn1)
 	progress("\nMotif finding started");
 	n_blocks = cluster(fw1,edge_list,rec_num);
         /*fflush(fw);*/
-	/*uglyTime("%d Motif seeds are written to %s", n_blocks, fn);*/
+	uglyTime("%d Motif seeds are written to ", n_blocks);
 	if (po->no_enhance && po->MOTIFLENGTH == po->Up)	uglyTime("\n%d Motifs are written to %s", n_blocks, fn1);
         /* clean up */
 	if ((po->no_enhance || po->FastVersion) && (po->MOTIFLENGTH == po->Up))

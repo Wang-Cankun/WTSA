@@ -62,7 +62,6 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
         for(i=0;i<motif_length;i++){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
 	}
-	
         return num;
 }
 
@@ -800,7 +799,10 @@ bool *clean_up_closures (Closures **aa, int closure_id, continuous threshold)
 			}
                 }
                 free (I_11);
-                if ((ii+1)%10==0) verboseDot();
+                if ((ii+1)%10==0) {
+					uglyTime("cleanup", ii);
+					verboseDot();
+				}
         }
 	for (i=0;i<closure_id;i++)
         {
@@ -1001,7 +1003,11 @@ discrete **get_closure_matrix_1 (Closures **aa, int closure_id, continuous thres
 			similarity = -1;
                 }
 		IC_1=0;
-		if ((ii+1)%10==0) verboseDot();
+		if ((ii+1)%10==0) 
+		{
+			uglyTime("get closure %d", ii);
+			verboseDot();
+		}
         }
 	/*print out the similarity scores*/
 /*	printf ("\no\t");

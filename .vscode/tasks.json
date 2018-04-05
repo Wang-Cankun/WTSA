@@ -1,33 +1,11 @@
 {
+    "taskName":"Makefile",
     "version": "0.1.0",
-    "command": "make",
+    "command": "gcc",
     "isShellCommand": true,
-    "tasks": [
-        {
-            "taskName": "Makefile",
-
-            // Make this the default build command.
-            "isBuildCommand": true,
-
-            // Show the output window only if unrecognized errors occur.
-            "showOutput": "always",
-
-            // No args
-            "args": ["all"],
-
-            // Use the standard less compilation problem matcher.
-            "problemMatcher": {
-                "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceRoot}"],
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                }
-            }
-        }
-    ]
+    // compiles and links with debugger information
+    "args": ["-g", "-o", "WTSA","-static","-lm","-fopenmp", "struct.c","compare_sequence.c"," make_graph.c"," get_options.c"," fib.c"," write_file.c"," find_clique.c"," main.c"," closure_process.c"," pvalue.c"," read_file.c"," matrix_process.c"],
+    // without debugger information
+    // "args": ["-o", "hello.exe", "hello.cpp"],
+    "showOutput": "always"
 }

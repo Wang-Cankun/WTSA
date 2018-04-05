@@ -10,6 +10,7 @@ void sort_closures_list(Closures **el, int n);
 int block_cmpr_1(const void *a, const void *b);
 int report_regulon( FILE *fw,  Block** bb, int num);
 void print_bc (FILE *fw1, Closures **cc, int num_cc, Block *b, int num);
+void simu_markov(long double Motif_R_V[7], int seq_number,int length_local_1, continuous pp[5],continuous AveScore_V[7],continuous score_scan,continuous **scoreM);
 static void print_regulon_horizonal( FILE *fw,  Block* bb, int num );
 static void print_regulon_vertical( FILE *fw,  Block* bb, int num );
 
