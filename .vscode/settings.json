@@ -1,0 +1,16 @@
+{
+    "files.encoding": "gb2312",
+    "files.associations": {
+        "*.cpp": "c++",
+        "*.md": "markdown",
+        "*.css": "css",
+        "compare_sequence.h": "c",
+        "struct.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "limits": "c",
+        "type_traits": "c"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled"
+}

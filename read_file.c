@@ -325,9 +325,17 @@ void read_sequences(FILE* fp1 )
 	
 	/* change A T C G to 0 1 2 3*/
         seq_matrix = alloc2d(s_rows,MAX_SEQUENCE_LENGTH);
+
+        /*int temp = strlen(seq_matrix[0]);*/
 	for (i=0;i<s_rows; i++)
-		for (j=0;j<MAX_SEQUENCE_LENGTH; j++)
-			seq_matrix[i][j] = 0;
+        {
+                for (j=0;j<MAX_SEQUENCE_LENGTH; j++)
+                {
+                        seq_matrix[i][j] = 0;
+                }
+        }
+		
+			
 
 
         while(fgets(buffer,MAX_SEQUENCE_LENGTH,fp1)!=NULL)
@@ -406,7 +414,9 @@ void read_sequences(FILE* fp1 )
 			for (k=0;k<s_cols;k++)
 				fre_matrix[i][j][k] = 0;
                 for (k=0;k<s_cols;k++)
+                {
 			fre_matrix[i][seq_matrix[i][k]][k] = 1;
+                }
 	}
 
         /*the markov processing, generate a markov matrix so that we can simulate sequences*/
