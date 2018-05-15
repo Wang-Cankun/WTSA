@@ -4,8 +4,17 @@
     "command": "gcc",
     "isShellCommand": true,
     // compiles and links with debugger information
-    "args": ["-g", "-o", "WTSA","-static","-lm","-fopenmp", "struct.c","compare_sequence.c"," make_graph.c"," get_options.c"," fib.c"," write_file.c"," find_clique.c"," main.c"," closure_process.c"," pvalue.c"," read_file.c"," matrix_process.c"],
+    "args": ["-g", "-o", "WTSA","-D VER=2","-static","-lm", "struct.c","compare_sequence.c"," make_graph.c"," get_options.c"," fib.c"," write_file.c"," find_clique.c"," main.c"," closure_process.c"," pvalue.c"," read_file.c"," matrix_process.c"],
     // without debugger information
     // "args": ["-o", "hello.exe", "hello.cpp"],
     "showOutput": "always"
 }
+
+
+// Makefile
+// ${workspaceRoot} the path of the folder opened in VS Code
+// ${file} the current opened file
+// ${fileBasename} the current opened file's basename
+// ${fileDirname} the current opened file's dirname
+// ${fileExtname} the current opened file's extension
+// ${cwd} the task runner's current working directory on startup

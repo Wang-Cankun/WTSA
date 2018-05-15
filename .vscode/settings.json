@@ -1,4 +1,5 @@
 {
+    "files.encoding": "gb2312",
     "files.associations": {
         "*.cpp": "c++",
         "*.md": "markdown",

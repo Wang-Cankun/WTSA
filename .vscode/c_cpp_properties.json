@@ -21,7 +21,10 @@
             "macFrameworkPath": [
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
-            ]
+            ],
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         },
         {
             "name": "Linux",
@@ -40,7 +43,10 @@
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         },
         {
             "name": "Win32",
@@ -53,7 +59,6 @@
                 "C:/MinGW/include",
                 "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
                 "C:\\Program Files (x86)\\mingw-w64\\i686-7.3.0-posix-dwarf-rt_v5-rev0\\mingw32\\i686-w64-mingw32\\include"
-
             ],
             "defines": [
                 "_DEBUG",
@@ -72,9 +77,10 @@
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             },
-            "cStandard": "c11",
-            "cppStandard": "c++11"
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe"
         }
     ],
-    "version": 3
+    "version": 4
 }

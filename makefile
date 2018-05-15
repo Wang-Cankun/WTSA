@@ -6,8 +6,8 @@ OBJS=$(SRCS:.c=.o)
 CC=gcc -g
 
 
-LDFLAGS= -static  -lm -fopenmp
-CFLAGS=-g -O0 -Wall -ansi -I.  -DVER=$(VER) -fopenmp 
+LDFLAGS= -static  -lm 
+CFLAGS=-g -O0 -Wall -ansi -I.  -D VER=$(VER) 
 
 
 all: $(PROGS)
