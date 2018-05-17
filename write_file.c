@@ -752,8 +752,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 	uglyTime("simulation %d start,num=%d",num+1,num);
 	/*simu_markov(Motif_R_V, seq_number, length_local_1, pp,AveScore_V, score_scan, scoreM);*/
 
-	if(num==0)
-	{
+	
 		int length_ave = 0, numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
 		continuous length_ave_1=0;
 		for (i=0;i<seq_number;i++)
@@ -766,7 +765,8 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 		discrete *randomdata_number;
 		randomdata_number = change_AGCT_to_num(randomdata,length_ave);
 		/*uglyTime("simulation start length_ave=%d: random=%hi",length_ave,randomdata_number);*/
-		for (Rt=0;Rt<10000*simulation;Rt++)
+	if(num==0)
+	{	for (Rt=0;Rt<10000*simulation;Rt++)
 		{
 			for(j=0;j<length_ave;j++)  
 			{
@@ -781,7 +781,10 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 				else {randomdata[j]='T';numberfore=4;}
 			} 
 			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-
+		}
+		printf("randomdata_number=%f\n",randomdata_number[1]);
+	}
+	
 			for(j=0;j<length_ave-length_local_1+1;j++)  
 			{
 				score_scan=0;
@@ -795,10 +798,9 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 					Motif_R_V[k]++;
 				}
 			} 
-		}
+		
 		/*printf("lengthave=%d,seqnum=%d,length_local_1=%d,AveScore_=%d,score_scan=%d\n",length_ave,seq_number,length_local_1,AveScore_V,score_scan);*/
 		
-	}
 	
 	for (t=6;t>=0;t--) 
 	{

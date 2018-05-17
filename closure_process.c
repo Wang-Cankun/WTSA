@@ -60,7 +60,9 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
         int i=0;
         continuous num=0;
         for(i=0;i<motif_length;i++){
+		if(pos1+i<MAX_SEQUENCE_LENGTH){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
+		}
 	}
         return num;
 }

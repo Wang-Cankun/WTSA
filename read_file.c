@@ -413,7 +413,7 @@ void read_sequences(FILE* fp1 )
 		for (j=0;j<4;j++)
 			for (k=0;k<s_cols;k++)
 				fre_matrix[i][j][k] = 0;
-                for (k=0;k<s_cols;k++)
+                for (k=0;k<(s_cols-8);k++)
                 {
 			fre_matrix[i][seq_matrix[i][k]][k] = 1;
                 }
