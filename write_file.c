@@ -757,6 +757,17 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         AllocArray (randomdata,length_ave);
 	discrete *randomdata_number;
         randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+
+
+
+uglyTime("Motif_R_V=%.3LF,length_ave=%d,length_local_1=%d, pp=%.3f,AveScore=%.3f,scoreM=%.3f",Motif_R_V[1],length_ave,length_local_1,pp[1],AveScore,scoreM[1][1]);
+
+/*length_ave = 298, length_local=14*/
+
+*Motif_R_V = simu_markov(Motif_R_V, length_ave, length_local_1,AveScore_V,scoreM);
+
+
+/*
         for (Rt=0;Rt<3000*simulation;Rt++)
 	{
                 for (i=0;i<4;i++)
@@ -784,9 +795,14 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
                         } 
                 }
 	}
-	for (t=6;t>=0;t--) 
-                Motif_R_V[t]=(Motif_R_V[t]*seq_number)/(4*(Rt));
 
+*/ 
+	for (t=6;t>=0;t--) {
+                Motif_R_V[t]=(Motif_R_V[t]*seq_number)/(4*(15000));
+		printf("%.3Lf ",Motif_R_V[t]);
+	}
+	printf("\n");
+	
         /* 2000:  simulation on markov data end   */
 
         /* 3000:  pvalue calculating begin   */     /*note: 4 corresponding to 0.7; 3 corresponding to 0.6; ...*/
@@ -1154,3 +1170,51 @@ static void print_regulon_vertical( FILE *fw,  Block* bb, int num )
 	free (arr_c1);*/
 }
 /******************************************************************/
+
+long double simu_markov(long double *Motif_R_V, int length_ave,int length_local_1,continuous *AveScore_V,continuous **scoreM)
+{
+int i,j,k,Rt;
+int  numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
+continuous score_scan;
+continuous pp[5];
+srand((unsigned)time(NULL));
+char *randomdata;
+AllocArray (randomdata,length_ave);
+discrete *randomdata_number;
+randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+
+for (Rt=0;Rt<3000*simulation;Rt++)
+	{
+                for (i=0;i<4;i++)
+		{
+                        for(j=0;j<length_ave;j++)  
+			{
+                                num_all_R++;
+                                for (k=1;k<5;k++)
+                                        pp[k]=p_markov[numberfore][k];
+                                randomNum=rand()%100;
+                                if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
+                                else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
+                                else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
+                                else {randomdata[j]='T';numberfore=4;}
+                        } 
+			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+                        for(j=0;j<length_ave-length_local_1+1;j++)  
+			{
+                                score_scan=0;
+				for (k=0;k<length_local_1;k++)
+					score_scan += scoreM[randomdata_number[k+j]+1][k];
+				for (k=6;k>=0;k--)
+                                        if (score_scan>AveScore_V[k])
+                                                Motif_R_V[k]=Motif_R_V[k]+1;
+
+                        } 
+                }
+	}
+	/*int t;
+	for (t=6;t>=0;t--) {
+                Motif_R_V[t]=(Motif_R_V[t])/(4*(Rt));
+		printf("%din%.3Lf ", Rt,Motif_R_V[t]);
+	}*/
+	return *Motif_R_V;
+}
