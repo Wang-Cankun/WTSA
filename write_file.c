@@ -426,7 +426,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 	int background_num;
 	continuous motif_background=0, motif_known=0, enrichment=0, zscore=0, motif_background_norm=0;
         block_rows = b->block_rows;
-	uglyTime("bc start numcc= %d num=%d", num_cc,num);
+	uglyTime("bc start numcc= %d motif_number=%d", num_cc,num);
         char **sequences_1;
         sequences_1=(char**)malloc(sizeof(char*)*block_rows);
         for(i=0;i<b->score;i++)
@@ -616,7 +616,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 			{
 				for (k=0;k<length_local_1;k++)
 				{
-					cctemp->scoreM[j][k] = scoreM[j][k];
+				 	cctemp->scoreM[j][k] = scoreM[j][k];
 				}
 			}
 			cctemp->seed = sequences_2;
@@ -749,9 +749,9 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 
         /* 2000:  simulation on markov data begin */
 	
-	uglyTime("simulation %d start,num=%d",num+1,num);
+	uglyTime("simulation %d ,num=%d",num+1,num);
 	/*simu_markov(Motif_R_V, seq_number, length_local_1, pp,AveScore_V, score_scan, scoreM);*/
-
+printf("lengthave=%d,seq_number=%d,length_local_1=%f,AveScore_=%d,score_scan=%d\n",length_ave,seq_number,length_local_1,AveScore_V,score_scan);
 	
 		int length_ave = 0, numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
 		continuous length_ave_1=0;
@@ -765,8 +765,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 		discrete *randomdata_number;
 		randomdata_number = change_AGCT_to_num(randomdata,length_ave);
 		/*uglyTime("simulation start length_ave=%d: random=%hi",length_ave,randomdata_number);*/
-	if(num==0)
-	{	for (Rt=0;Rt<10000*simulation;Rt++)
+		for (Rt=0;Rt<10000*simulation;Rt++)
 		{
 			for(j=0;j<length_ave;j++)  
 			{
@@ -781,9 +780,8 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 				else {randomdata[j]='T';numberfore=4;}
 			} 
 			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-		}
-		printf("randomdata_number=%f\n",randomdata_number[1]);
-	}
+		
+ 	}
 	
 			for(j=0;j<length_ave-length_local_1+1;j++)  
 			{
@@ -806,9 +804,9 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 	{
                 Motif_R_V[t]=(Motif_R_V[t]*seq_number)/(Rt);
 		/*uglyTime("Motif_R_V=%ld: seq_number=%d",Motif_R_V[t],seq_number);*/
-		printf("%Lf",Motif_R_V[t]);
+		printf("%Lf;",Motif_R_V[t]);
 	}
-
+	printf("%d\n",motif_number);
         /* 2000:  simulation on markov data end   */
 
         /* 3000:  pvalue calculating begin   */     /*note: 4 corresponding to 0.7; 3 corresponding to 0.6; ...*/
