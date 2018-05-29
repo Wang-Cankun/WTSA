@@ -108,9 +108,7 @@ static bool **matrix_no_continuous_equal(bool **matrix)
 /***********************************************************************/
 static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *match, bool *match1, int lower, int upper, struct dispos *marray, struct edgepos *marray1, int mpos, int msize, int maxscore, int maxindex, int *startpos)
 {
-	
 	int i,j,p,q,k;
-	/*uglyTime("compare first start", i);*/
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
         d2 = alloc2dd (s_cols,s_cols);
@@ -123,7 +121,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 	{
 		/* one dot represent ten sequences */
 		if ((i+1)%10==0) verboseDot(); 
-		/*uglyTime("first for i=%d", i);*/
+
 		for(p=i;p<s_rows;p++)
 		{
 			/*initialize the values of d1*/
@@ -213,16 +211,13 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 /*************************************************************************************************************************/
 static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **matrix1, bool *match, bool *match1, int lower, int upper, struct dispos *marray, struct edgepos *marray1, int mpos, int msize, int maxscore, int maxindex, int *startpos)
 {
-	
 	int i,j,p,q,k,j1=0,q1=0,min,min1;
-	/*uglyTime("compare second start", i);*/
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
         d2 = alloc2dd (s_cols,s_cols);
-	
+
 	for(i=0;i<s_rows;i++)
 	{
-		/*uglyTime("second for i=%d", i);*/
 		if ((i+1)%10==0)
 		verboseDot();
 		for(p=i;p<s_rows;p++)
@@ -249,10 +244,7 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 					if (q==j && i==p)  {d1[j][q]=0; continue;}
 
 					if (j>0 && q>0 && !matrix3[p][q-1] && !matrix3[i][j-1]) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
-					else 
-					{
-						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
-					}
+					else d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					/*set a threshold for d1*/
 					if (d1[j][q] <po->threshold)  continue;
 					else
@@ -337,9 +329,7 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matrix1, bool *match, bool *match1, int lower, int upper, struct dispos *marray, struct edgepos *marray1, int mpos, int msize, int maxscore, int maxindex, int *startpos, int curelement1)
 {
 	
-	/*int temp_length = po->MOTIFLENGTH;*/
 	int row,col,min,min1,q1=0,j1=0, i,j,p,q,k;
-	/*uglyTime("compare third start", i);*/
 	/* get the 0-1 matrix base on the three times pairwise comparison, saved in acc_c; arr_c1 save the relative motif starting positions*/
 	int ver = s_rows*po->TOPVERTICES;
 	arr_c = alloc2d(ver,ver);
@@ -378,7 +368,6 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 		marray[i].score=0;
 	for(i=0,curelement1=0;i<s_rows;i++)
 	{
-		/*uglyTime("third for i=%d", i);*/
 		if ((i+1)%10==0) verboseDot();
 		for(p=i;p<s_rows;p++)
 		{
@@ -404,15 +393,8 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 					if (matrix3[p][q])  continue;
 					if (q==j && i==p) { d4[j][q].score = d1[j][q]=0; continue;}
 
-					if (j>0 && q>0 && !matrix3[p][q-1] && !matrix3[i][j-1]) 
-					{
-						d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
-					}
-					else 
-					{
-						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
-						
-					}
+					if (j>0 && q>0 && !matrix3[p][q-1] && !matrix3[i][j-1]) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
+					else d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					if (d1[j][q] <po->threshold)
 					{
 						if ((match[j]) && (match1[q])) continue;
@@ -621,31 +603,21 @@ static void get_final_graph (int msize1, int **matrix,  bool **matrix2,struct ed
                 if ((matrix2[marray1[curelement1].x1][marray1[curelement1].x])&&(matrix2[marray1[curelement1].y1][marray1[curelement1].y]))
                 {
                         if (marray1[curelement1].x==0)
-                        {
                                 i=-(matrix[marray1[curelement1].x1][marray1[curelement1].x])-1;
-                                k1 = 1;
-                        }
                         else
-                        {
                                 i=- MIN(matrix[marray1[curelement1].x1][marray1[curelement1].x],matrix[marray1[curelement1].x1][marray1[curelement1].x-1])-1;
-                                if (matrix[marray1[curelement1].x1][marray1[curelement1].x]<matrix[marray1[curelement1].x1][marray1[curelement1].x-1])
-                                        k1=1;
-                                else
-                                        k1=0;
-                        }
-                        if (marray1[curelement1].y==0)
-                        {
-                                j=-(matrix[marray1[curelement1].y1][marray1[curelement1].y])-1;
-                                k2 = 1;
-                        }
+                        if (matrix[marray1[curelement1].x1][marray1[curelement1].x]<matrix[marray1[curelement1].x1][marray1[curelement1].x-1])
+                                k1=1;
                         else
-                        {
+                                k1=0;
+                        if (marray1[curelement1].y==0)
+                                j=-(matrix[marray1[curelement1].y1][marray1[curelement1].y])-1;
+                        else
                                 j=- MIN(matrix[marray1[curelement1].y1][marray1[curelement1].y],matrix[marray1[curelement1].y1][marray1[curelement1].y-1])-1;
-                                if (matrix[marray1[curelement1].y1][marray1[curelement1].y]<matrix[marray1[curelement1].y1][marray1[curelement1].y-1])
-                                        k2=1;
-                                else
-                                        k2=0;
-                        }
+                        if (matrix[marray1[curelement1].y1][marray1[curelement1].y]<matrix[marray1[curelement1].y1][marray1[curelement1].y-1])
+                                k2=1;
+                        else
+                                k2=0;
                         arr_c[po->TOPVERTICES*marray1[curelement1].x1+i][po->TOPVERTICES*marray1[curelement1].y1+j]=1;
                         arr_c[po->TOPVERTICES*marray1[curelement1].y1+j][po->TOPVERTICES*marray1[curelement1].x1+i]=1;
                         if (k1==1 && k2==0)
@@ -670,7 +642,7 @@ static void get_final_graph (int msize1, int **matrix,  bool **matrix2,struct ed
 void compare_sequences(char **sequences)
 {
 	int i,p,j,curelement1=0;
-	uglyTime("compare whole start", i);
+	
 	AllocArray (IsLengthEnough, s_rows);
 	for (i=0; i<s_rows; i++)
 		IsLengthEnough[i] = TRUE;

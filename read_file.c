@@ -175,7 +175,6 @@ discrete *change_AGCT_to_num (char *seq, int length)
 int scan_genome (continuous **scoreM, continuous AveScore, int motif_length, FILE* fp)
 /*scan each seed in background genome*/
 {
-		
         sum_genome = 0;
         int background_num =0;
         int i,j,seq_length=0;
@@ -241,7 +240,6 @@ int scan_genome (continuous **scoreM, continuous AveScore, int motif_length, FIL
         free (buffer_combine_end);
         free (end_sequence);
 	free (buffer_combine_end_number);
-	uglyTime("scan_genome", s_rows);
         return background_num;
 }
 
@@ -325,17 +323,9 @@ void read_sequences(FILE* fp1 )
 	
 	/* change A T C G to 0 1 2 3*/
         seq_matrix = alloc2d(s_rows,MAX_SEQUENCE_LENGTH);
-
-        /*int temp = strlen(seq_matrix[0]);*/
 	for (i=0;i<s_rows; i++)
-        {
-                for (j=0;j<MAX_SEQUENCE_LENGTH; j++)
-                {
-                        seq_matrix[i][j] = 0;
-                }
-        }
-		
-			
+		for (j=0;j<MAX_SEQUENCE_LENGTH; j++)
+			seq_matrix[i][j] = 0;
 
 
         while(fgets(buffer,MAX_SEQUENCE_LENGTH,fp1)!=NULL)
@@ -413,10 +403,8 @@ void read_sequences(FILE* fp1 )
 		for (j=0;j<4;j++)
 			for (k=0;k<s_cols;k++)
 				fre_matrix[i][j][k] = 0;
-                for (k=0;k<(s_cols-8);k++)
-                {
+                for (k=0;k<s_cols;k++)
 			fre_matrix[i][seq_matrix[i][k]][k] = 1;
-                }
 	}
 
         /*the markov processing, generate a markov matrix so that we can simulate sequences*/
