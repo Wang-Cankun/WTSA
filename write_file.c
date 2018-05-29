@@ -426,7 +426,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 	int background_num;
 	continuous motif_background=0, motif_known=0, enrichment=0, zscore=0, motif_background_norm=0;
         block_rows = b->block_rows;
-	uglyTime("bc start numcc= %d motif_number=%d", num_cc,num);
+	uglyTime("print_bc start numcc= %d motif_number=%d", num_cc,num);
         char **sequences_1;
         sequences_1=(char**)malloc(sizeof(char*)*block_rows);
         for(i=0;i<b->score;i++)
@@ -750,53 +750,9 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         /* 2000:  simulation on markov data begin */
 	
 	uglyTime("simulation %d ,num=%d",num+1,num);
-	/*simu_markov(Motif_R_V, seq_number, length_local_1, pp,AveScore_V, score_scan, scoreM);*/
-printf("lengthave=%d,seq_number=%d,length_local_1=%f,AveScore_=%d,score_scan=%d\n",length_ave,seq_number,length_local_1,AveScore_V,score_scan);
-	
-		int length_ave = 0, numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
-		continuous length_ave_1=0;
-		for (i=0;i<seq_number;i++)
-			length_ave_1=length_ave_1+strlen(sequences[i]);
-		length_ave=ceil(length_ave_1/seq_number); 
-
-		srand((unsigned)time(NULL));
-		char *randomdata;
-		AllocArray (randomdata,length_ave);
-		discrete *randomdata_number;
-		randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-		/*uglyTime("simulation start length_ave=%d: random=%hi",length_ave,randomdata_number);*/
-		for (Rt=0;Rt<10000*simulation;Rt++)
-		{
-			for(j=0;j<length_ave;j++)  
-			{
-				num_all_R++;
-				for (k=1;k<5;k++)
-					pp[k]=p_markov[numberfore][k];
-				randomNum=rand()%100;
-				/*uglyTime("pp[1]*100=%d",pp[1]*100);*/
-				if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
-				else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
-				else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
-				else {randomdata[j]='T';numberfore=4;}
-			} 
-			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-		
- 	}
-	
-			for(j=0;j<length_ave-length_local_1+1;j++)  
-			{
-				score_scan=0;
-				for (k=0;k<length_local_1;k++)
-				{
-					score_scan += scoreM[randomdata_number[k+j]+1][k];
-				}
-				for (k=6;k>=0;k--)
-				{
-					if (score_scan>AveScore_V[k])
-					Motif_R_V[k]++;
-				}
-			} 
-		
+	*Motif_R_V = simu_markov(Motif_R_V, seq_number, length_local_1, pp,AveScore_V, score_scan, scoreM);
+	printf("seq_number=%d,length_local_1=%f,AveScore_=%f\n",seq_number,length_local_1,AveScore);
+	/**move simulation  down/
 		/*printf("lengthave=%d,seqnum=%d,length_local_1=%d,AveScore_=%d,score_scan=%d\n",length_ave,seq_number,length_local_1,AveScore_V,score_scan);*/
 		
 	
@@ -1175,9 +1131,52 @@ static void print_regulon_vertical( FILE *fw,  Block* bb, int num )
 	free (arr_c1);*/
 }
 /******************************************************************/
-/*
-void simu_markov(long double Motif_R_V[7], int seq_number,int length_local_1, continuous pp[5],continuous AveScore_V[7],continuous score_scan,continuous **scoreM)
+
+long double simu_markov(long double *Motif_R_V, int seq_number,int length_local_1, continuous pp[5],continuous *AveScore_V,continuous score_scan,continuous **scoreM)
 {
-	
-	
-}*/
+int i,j,k,Rt;
+int length_ave = 0, numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
+continuous length_ave_1=0;
+for (i=0;i<seq_number;i++)
+	length_ave_1=length_ave_1+strlen(sequences[i]);
+length_ave=ceil(length_ave_1/seq_number); 
+
+srand((unsigned)time(NULL));
+char *randomdata;
+AllocArray (randomdata,length_ave);
+discrete *randomdata_number;
+randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+/*uglyTime("simulation start length_ave=%d: random=%hi",length_ave,randomdata_number);*/
+for (Rt=0;Rt<10000*simulation;Rt++)
+{
+	for(j=0;j<length_ave;j++)  
+	{
+		num_all_R++;
+		for (k=1;k<5;k++)
+			pp[k]=p_markov[numberfore][k];
+		randomNum=rand()%100;
+		/*uglyTime("pp[1]*100=%d",pp[1]*100);*/
+		if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
+		else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
+		else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
+		else {randomdata[j]='T';numberfore=4;}
+	} 
+	randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+
+}
+
+	for(j=0;j<length_ave-length_local_1+1;j++)  
+	{
+		score_scan=0;
+		for (k=0;k<length_local_1;k++)
+		{
+			score_scan += scoreM[randomdata_number[k+j]+1][k];
+		}
+		for (k=6;k>=0;k--)
+		{
+			if (score_scan>AveScore_V[k])
+			Motif_R_V[k]++;
+		}
+	} 
+	return *Motif_R_V;
+}
