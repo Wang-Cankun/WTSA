@@ -337,7 +337,8 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
        		i++;
 		if (flag)
 		{
-			print_bc( fw1,cc, closure_id++, b_ptr, j++);
+			
+			print_bc( fw1,cc, closure_id++, b_ptr, j++, store_avescore);
 			*bb_ptr++ = b_ptr;
 			verboseDot();
 		}

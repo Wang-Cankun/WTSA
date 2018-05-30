@@ -96,7 +96,10 @@ char **SequenceInfo;
 
 /*sequence weight*/
 continuous *SequenceWeight;
-
+continuous *store_avescore;
+continuous *store_scorescan;
+continuous **store_motifrv;
+continuous ***store_scorem;
 /*we save the frequency matrix and score matrix so that we can reduce time complexity*/
 discrete ***fre_all;
 discrete ***fre2_all;
@@ -342,6 +345,7 @@ void dsPush(struct dyStack *ds,int element);
 void dsPush1(struct dyStack1 *ds,int element);
 discrete** alloc2d(int rr, int cc);
 continuous** alloc2dd(int rr, int cc);
+continuous alloc3D(continuous ****p, const int x, const int y, int z);
 char** alloc2c(int rr, int cc);
 #define dsFree free
 /* Release the stack data structure */

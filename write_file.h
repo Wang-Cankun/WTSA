@@ -9,8 +9,8 @@ int report_closures(FILE *fw1, Closures **cc, int num_cc,Annotation **anno );
 void sort_closures_list(Closures **el, int n);
 int block_cmpr_1(const void *a, const void *b);
 int report_regulon( FILE *fw,  Block** bb, int num);
-long double simu_markov(long double Motif_R_V[7], int length_ave,int length_local_1,continuous AveScore_V[7],continuous **scoreM);
-void print_bc (FILE *fw1, Closures **cc, int num_cc, Block *b, int num);
+long double simu_markov(long double Motif_R_V[7], int length_ave,int length_local_1,continuous AveScore_V[7],continuous ***store_scorem);
+void print_bc (FILE *fw1, Closures **cc, int num_cc, Block *b, int num, continuous* store_avescore);
 static void print_regulon_horizonal( FILE *fw,  Block* bb, int num );
 static void print_regulon_vertical( FILE *fw,  Block* bb, int num );
 

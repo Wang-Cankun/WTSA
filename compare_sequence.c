@@ -745,7 +745,25 @@ void compare_sequences(char **sequences)
 	
 	/*select po->TOPVERTICES from each sequences so that we can construct a induced subgraph, saved in profile1*/
 	select_topvertex (matrix, matrix2, matrix3);	
-	
+	AllocArray (store_avescore,po->RPT_BLOCK);
+	AllocArray (store_scorescan,po->RPT_BLOCK);		
+			
+				store_motifrv = alloc2dd (po->RPT_BLOCK,7);
+				for (i=0;i<po->RPT_BLOCK;i++)
+				{
+					store_avescore[i]=0;
+					store_scorescan[i]=0;
+				}
+				 for (i=0; i<po->RPT_BLOCK; i++)
+				{
+					for (j=0; j<7; j++)
+					{
+						store_motifrv[i][j]=0;
+					}
+				}
+				
+alloc3D(&store_scorem,po->RPT_BLOCK,5,po->MOTIFLENGTH);
+
 	/*get the final graph on which we can find clique */	
 	get_final_graph (msize1, matrix,  matrix2, marray1);
 	

@@ -416,7 +416,7 @@ int report_regulon( FILE *fw,  Block** bb, int num)
 
 /************************************************************************/
 /* Identified clusters are backtraced to the original data, by putting the clustered vectors together, identify common column */
-void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
+void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num, continuous* store_avescore)
 {
         int i;
         int block_rows;
@@ -758,14 +758,28 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 	discrete *randomdata_number;
         randomdata_number = change_AGCT_to_num(randomdata,length_ave);
 
-
-
-uglyTime("Motif_R_V=%.3LF,length_ave=%d,length_local_1=%d, pp=%.3f,AveScore=%.3f,scoreM=%.3f",Motif_R_V[1],length_ave,length_local_1,pp[1],AveScore,scoreM[1][1]);
+	store_avescore[num] = AveScore;
+	store_scorem[num] = scoreM;
+	i=0;
+	/*for(i;i< po->RPT_BLOCK;i++){
+	printf("%.3f;%d\n",store_scorem[num][1][1],num);
+	}*/
+/*uglyTime(" pp=%.3f,AveScore=%.3f,scoreM=%.3f",pp[1],AveScore,scoreM[1][1]);*/
 
 /*length_ave = 298, length_local=14*/
+if (po->RPT_BLOCK==num_cc+1) {
+	
+*Motif_R_V = simu_markov(Motif_R_V, length_ave, length_local_1,store_avescore,store_scorem);
 
-*Motif_R_V = simu_markov(Motif_R_V, length_ave, length_local_1,AveScore_V,scoreM);
-
+for(i=0; i< po->RPT_BLOCK;i++){
+	for (t=6;t>=0;t--) {
+			
+			store_motifrv[num][t] = (store_motifrv[num][t]*seq_number)/(6000);
+			printf("%f ",store_motifrv[num][t]);
+		}
+	}
+	printf("\n");
+}
 
 /*
         for (Rt=0;Rt<3000*simulation;Rt++)
@@ -1171,9 +1185,9 @@ static void print_regulon_vertical( FILE *fw,  Block* bb, int num )
 }
 /******************************************************************/
 
-long double simu_markov(long double *Motif_R_V, int length_ave,int length_local_1,continuous *AveScore_V,continuous **scoreM)
+long double simu_markov(long double *Motif_R_V, int length_ave,int length_local_1,continuous *store_avescore,continuous ***store_scorem)
 {
-int i,j,k,Rt;
+int i,j,k,Rt,num;
 int  numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
 continuous score_scan;
 continuous pp[5];
@@ -1199,15 +1213,23 @@ for (Rt=0;Rt<3000*simulation;Rt++)
                                 else {randomdata[j]='T';numberfore=4;}
                         } 
 			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-                        for(j=0;j<length_ave-length_local_1+1;j++)  
-			{
-                                score_scan=0;
-				for (k=0;k<length_local_1;k++)
-					score_scan += scoreM[randomdata_number[k+j]+1][k];
-				for (k=6;k>=0;k--)
-                                        if (score_scan>AveScore_V[k])
-                                                Motif_R_V[k]=Motif_R_V[k]+1;
-
+                        for (num=0; num < po->RPT_BLOCK; num++){
+				for(j=0;j<length_ave-length_local_1+1;j++)  
+				{
+					score_scan=0;
+					store_scorescan[num] =0;
+					for (k=0;k<length_local_1;k++){
+						score_scan += store_scorem[num][randomdata_number[k+j]+1][k];
+						store_scorescan[num] += store_scorem[num][randomdata_number[k+j]+1][k];
+					}
+					for (k=6;k>=0;k--){
+						/*printf("%f;%f\n",store_scorescan[num],score_scan);*/
+						if (store_scorescan[num]>(store_avescore[9]*(0.3+0.1*k))){
+							Motif_R_V[k]=Motif_R_V[k]+1;
+							store_motifrv[num][k] = store_motifrv[num][k]+1;
+						}
+					}
+				}
                         } 
                 }
 	}

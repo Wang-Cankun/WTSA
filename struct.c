@@ -182,6 +182,36 @@ FILE *mustOpen(const char *fileName, char *mode)
 /**************************************************************************/
 /* Matrix allocations (continuous and discrete 2d array) */
 
+continuous alloc3D(continuous ****p, const int x, const int y, int z)
+{
+   int i,j;
+      
+   *p= (continuous ***)malloc(y*sizeof(continuous**));  //y-axis
+   
+   for(i=0; i < y; i++)
+   {
+      //p[i]= (int**)malloc(x*sizeof(int*)); //error
+      (*p)[i]= (continuous**)malloc(x*sizeof(continuous*)); //works well
+      //*((*p)+i)= (int**)malloc(x*sizeof(int*));
+            
+   }
+
+  for(i=0;i < y;i++)
+   for(j=0;j < x;j++)
+   {
+	   //    *(*(p+i) +j) = new int [z];
+   
+       *(*(*(p)+i)+j) = (continuous*)malloc(z*sizeof(continuous));
+      
+   }
+
+  
+   if(p == NULL) return 0;
+   
+   return 1;
+}
+
+
 discrete** alloc2d(int rr, int cc)
 {
         discrete** result;
@@ -189,7 +219,7 @@ discrete** alloc2d(int rr, int cc)
         AllocArray(result, rr);
         for (i = 0; i < rr; i++)
                 AllocArray(result[i], cc);
-        return result;
+        return result;  
 }
 continuous** alloc2dd(int rr, int cc)
 {

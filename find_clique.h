@@ -27,7 +27,7 @@ char **alloc2c (int rr, int cc);
 extern void print_params(FILE *fw1);
 extern int report_closures(FILE *fw1, Closures **cc, int num_cc,Annotation **anno );
 extern int report_regulon( FILE *fw,  Block** bb, int num);
-extern void print_bc ( FILE *fw1, Closures **cc, int num_cc, Block *b, int num);
+extern void print_bc ( FILE *fw1, Closures **cc, int num_cc, Block *b, int num, continuous* store_avescore);
 extern void sort_closures_list(Closures **el, int n);
 extern int block_cmpr_1(const void *a, const void *b);
 /*from closure_process*/
