@@ -172,7 +172,6 @@ void scan_block (struct dyStack *gene_set, Block *b_ptr)
 /* Core algorithm */
 int cluster (FILE *fw1, Edge **el, int n)
 {
-	
 	int block_id = 0;
 	Block **bb;
 	int allocated = po->SCH_BLOCK;
@@ -291,7 +290,7 @@ int cluster (FILE *fw1, Edge **el, int n)
         /* free-up the candidate list */
 	if (po->MOTIFLENGTH == po->Up)
 	{
-        free(candidates);
+        	free(candidates);
 		free(allincluster);
 	}
 	return post_processing_blocks(fw1, bb, block_id);
@@ -303,7 +302,6 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 {
 	/*printf ("%d\n",num);*/
 	int closure_id = 0;
-	/*uglyTime("post_processing_blocks start %d", closure_id);*/
 	sort_block_list(bb, num);
 	int i, j,k;
         int n = MIN(num, po->RPT_BLOCK);
@@ -318,7 +316,6 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 	int inter_rows, inter_cols;
 	/* the major post-processing here, filter overlapping blocks*/
 	i = 0; j = 0;
-	
 	while (i < num && j < n)
 	{
 		b_ptr = bb[i];
@@ -345,7 +342,6 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 			verboseDot();
 		}
 	}
-	
 	if (po->MOTIFLENGTH == po->Up && po->no_enhance)
 		print_params(fw1);
 	if (po->Low == po->Up)
@@ -374,7 +370,6 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 		if (po->MOTIFLENGTH == po->Up && po->no_enhance)
 			j = report_closures(fw1,all,all_id,anno);
 	}
-	uglyTime("post_processing_blocks end %d", j);
 	return j;
 }
 

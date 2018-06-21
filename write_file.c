@@ -8,7 +8,6 @@
 /*************************************************************************/
 void print_params(FILE *fw1)
 {
-	
         fprintf(fw1, "#########################################\n#                                       #\n");
         fprintf(fw1, "#\tBoBro version %.2f output\t#\n", VER);
         fprintf(fw1, "#                                       #\n#########################################\n");
@@ -334,7 +333,6 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		ii++;
                 fprintf (fw1,"----------------------------------------------------\n");
         }
-		uglyTime("write_file", s_rows);
         return closure_output;
 }
 
@@ -420,13 +418,12 @@ int report_regulon( FILE *fw,  Block** bb, int num)
 /* Identified clusters are backtraced to the original data, by putting the clustered vectors together, identify common column */
 void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 {
-	
-        int i,Rt;
+        int i;
         int block_rows;
 	int background_num;
 	continuous motif_background=0, motif_known=0, enrichment=0, zscore=0, motif_background_norm=0;
+
         block_rows = b->block_rows;
-	uglyTime("bc start numcc= %d num=%d", num_cc,num);
         char **sequences_1;
         sequences_1=(char**)malloc(sizeof(char*)*block_rows);
         for(i=0;i<b->score;i++)
@@ -589,6 +586,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 			scoreM_RC[i][j]=0;
 		}
 	}
+
         /* 1000: 3 times closure improvement begion : ii */
         for (ii=1;ii< po->closure_enlarge_times+1;ii++)
 	{
@@ -633,7 +631,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
                 /*1400: scoring motifs and calculate threshod for closure begin*/
 		AveScore = aver_score_closure(sequences_2,  scoreM, score, motif_number, length_local_1);
 /*		printf ("%3.2f\n",AveScore);*/
-                for (i=0;i<7;i++)
+                for (i=0;i<8;i++)
 		{
                         AveScore_V[i]=(0.3+0.1*i)*AveScore;
                         Motif_Scan_V[i]=0; 
@@ -748,64 +746,46 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         /* 1000: 3 times closure improvement end : ii */
 
         /* 2000:  simulation on markov data begin */
-	
-	uglyTime("simulation %d start,num=%d",num+1,num);
-	/*simu_markov(Motif_R_V, seq_number, length_local_1, pp,AveScore_V, score_scan, scoreM);*/
+	int length_ave=0,numberfore=1,randomNum,simulation=po->simu,Rt,num_all_R=0;
+        continuous length_ave_1=0;
+        for (i=0;i<seq_number;i++)
+                length_ave_1=length_ave_1+strlen(sequences[i]);
+        length_ave=ceil(length_ave_1/seq_number); 
 
-	if(num==0)
+        srand((unsigned)time(NULL));
+        char *randomdata;
+        AllocArray (randomdata,length_ave);
+	discrete *randomdata_number;
+        randomdata_number = change_AGCT_to_num(randomdata,length_ave);
+        for (Rt=0;Rt<3000*simulation;Rt++)
 	{
-		int length_ave = 0, numberfore = 1, randomNum, simulation = po->simu, num_all_R = 0;
-		continuous length_ave_1=0;
-		for (i=0;i<seq_number;i++)
-			length_ave_1=length_ave_1+strlen(sequences[i]);
-		length_ave=ceil(length_ave_1/seq_number); 
-
-		srand((unsigned)time(NULL));
-		char *randomdata;
-		AllocArray (randomdata,length_ave);
-		discrete *randomdata_number;
-		randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-		/*uglyTime("simulation start length_ave=%d: random=%hi",length_ave,randomdata_number);*/
-		for (Rt=0;Rt<10000*simulation;Rt++)
+                for (i=0;i<4;i++)
 		{
-			for(j=0;j<length_ave;j++)  
+                        for(j=0;j<length_ave;j++)  
 			{
-				num_all_R++;
-				for (k=1;k<5;k++)
-					pp[k]=p_markov[numberfore][k];
-				randomNum=rand()%100;
-				/*uglyTime("pp[1]*100=%d",pp[1]*100);*/
-				if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
-				else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
-				else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
-				else {randomdata[j]='T';numberfore=4;}
-			} 
+                                num_all_R++;
+                                for (k=1;k<5;k++)
+                                        pp[k]=p_markov[numberfore][k];
+                                randomNum=rand()%100;
+                                if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
+                                else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
+                                else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
+                                else {randomdata[j]='T';numberfore=4;}
+                        } 
 			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-
-			for(j=0;j<length_ave-length_local_1+1;j++)  
+                        for(j=0;j<length_ave-length_local_1+1;j++)  
 			{
-				score_scan=0;
+                                score_scan=0;
 				for (k=0;k<length_local_1;k++)
-				{
 					score_scan += scoreM[randomdata_number[k+j]+1][k];
-				}
 				for (k=6;k>=0;k--)
-				{
-					if (score_scan>AveScore_V[k])
-					Motif_R_V[k]++;
-				}
-			} 
-		}
-		/*printf("lengthave=%d,seqnum=%d,length_local_1=%d,AveScore_=%d,score_scan=%d\n",length_ave,seq_number,length_local_1,AveScore_V,score_scan);*/
-		
+                                        if (score_scan>AveScore_V[k])
+                                                Motif_R_V[k]=Motif_R_V[k]+1;
+                        } 
+                }
 	}
-	
 	for (t=6;t>=0;t--) 
-	{
-                Motif_R_V[t]=(Motif_R_V[t]*seq_number)/(Rt);
-		/*uglyTime("Motif_R_V=%ld: seq_number=%d",Motif_R_V[t],seq_number);*/
-		printf("%Lf",Motif_R_V[t]);
-	}
+                Motif_R_V[t]=(Motif_R_V[t]*seq_number)/(4*(Rt));
 
         /* 2000:  simulation on markov data end   */
 
@@ -901,7 +881,6 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 
         }
         cc[num_cc] = cctemp;
-	/*uglyTime("bc end block_rows= %d background_num=%d", block_rows,background_num);*/
 }
 /******************************************************************/
 static void print_regulon_horizonal( FILE *fw,  Block* bb, int num )
@@ -1175,9 +1154,3 @@ static void print_regulon_vertical( FILE *fw,  Block* bb, int num )
 	free (arr_c1);*/
 }
 /******************************************************************/
-/*
-void simu_markov(long double Motif_R_V[7], int seq_number,int length_local_1, continuous pp[5],continuous AveScore_V[7],continuous score_scan,continuous **scoreM)
-{
-	
-	
-}*/
