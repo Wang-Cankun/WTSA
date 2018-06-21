@@ -1,6 +1,6 @@
-VER=2.0
-DIST=WTSA$(VER)
-PROGS=WTSA
+VER=3.0
+DIST=BoBro$(VER)
+PROGS=BoBro
 SRCS=struct.c compare_sequence.c make_graph.c get_options.c fib.c write_file.c find_clique.c main.c closure_process.c pvalue.c read_file.c matrix_process.c 
 OBJS=$(SRCS:.c=.o) 
 CC=gcc -g
@@ -12,7 +12,7 @@ CFLAGS=-g -O0 -Wall -ansi -I.  -D VER=$(VER)
 
 all: $(PROGS)
 
-WTSA: $(OBJS)
+BoBro: $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 .o:
 	$(CC) $(CFLAGS) $< -o $@ 
@@ -27,19 +27,19 @@ dist:
 	cd .. && tar czvf $(DIST).tar.gz $(DIST)/
 test:
 	$(MAKE)
-	./WTSA.exe -i test.fasta -l 14 -F
+	./BoBro.exe -i test.fasta -l 14 -F
 testP:
 	$(MAKE)
-	./WTSA -i example -P
+	./BoBro -i example -P
 testM:
 	$(MAKE)
-	./WTSA -i example -M
+	./BoBro -i example -M
 testG:
 	$(MAKE)
-	./WTSA -i example -G
+	./BoBro -i example -G
 testC:
 	$(MAKE)
-	./WTSA -i example -C
+	./BoBro -i example -C
 testa:
 	$(MAKE)
-	./WTSA -i example -j example_anno 
+	./BoBro -i example -j example_anno 
