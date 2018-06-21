@@ -757,7 +757,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         AllocArray (randomdata,length_ave);
 	discrete *randomdata_number;
         randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-        for (Rt=0;Rt<3000*simulation;Rt++)
+        for (Rt=0;Rt<1000*simulation;Rt++)
 	{
                 for (i=0;i<4;i++)
 		{
