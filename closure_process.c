@@ -59,19 +59,61 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 {
         int i=0;
         continuous num=0;
+	continuous binomial[] ={0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,2.162305
+,2.231444
+,2.246267
+,2.248593
+,2.248871
+,2.248896
+,2.248897
+,2.248897};
         for(i=0;i<motif_length;i++){
 		if(pos1+i<MAX_SEQUENCE_LENGTH){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
 		}
 	}
-        return num;
+	/*printf("%f",num);*/
+        return binomial[(int)num];
 }
 
 /************************************************************************/
 continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1, int pos2, int lower, int upper, continuous init)
 {
        int pos=0;
+       double binomial[] = {0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,2.162305
+,2.231444
+,2.246267
+,2.248593
+,2.248871
+,2.248896
+,2.248897
+,2.248897};
        continuous num= init;
+       if (po->no_enhance)
+	
+               num = num*2;
+       return num;
+       /*
        if (po->middle_enhance)
        {
                for (pos=lower;pos<upper;pos++)
@@ -81,14 +123,12 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
                num = 2*num;
        else
        {
-               /* we consider the conserve proporty of two ends of motif*/
+               /* we consider the conserve proporty of two ends of motif
                num=(po->end_weight)*num;
                for (pos=lower;pos<upper;pos++)
 		       num -= fre_matrix[seq2][seq_matrix[seq1][pos1+pos]][pos2+pos]*(po->end_weight-1);
-       }
-       if (po->SequenceWeight)
-               num = num*(SequenceWeight[seq1]+SequenceWeight[seq2]);
-       return num;
+       }*/
+       
 }
 
 /************************************************************************/

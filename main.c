@@ -19,7 +19,10 @@ int main(int argc, char* argv[])
 	/* pop up the information of Bregulon */
 	printf("\nBoBro%.2f: motif finding on genome scale (compiled "__DATE__" "__TIME__")\n\n", VER);
 	/* read the fasta file and compare the sequences*/
-	if (po->IS_sequence) read_sequences(po -> FP);
+	if (po->IS_sequence) {
+		read_sequences(po -> FP);
+		;
+	}
 	/* read the combined reference genome file if any (optional),
 	 * so that we can refine and expand the predicted regulons by a pvalue threshold*/
 	if (po->IS_reference) read_reference_genome (po->FG);
@@ -49,12 +52,13 @@ int main(int argc, char* argv[])
 		{
 			po->MOTIFLENGTH = length_motif;   
 			/* compare the input sequences in fasta format */
+			po->no_enhance = TRUE;
 			compare_sequences(sequences);
 			init_dis();
 			/* find motif seeds from the graph we constructed*/
 			make_graph (addSuffix(po->FN, ".closures"));
 			
-			po->middle_enhance = TRUE;
+			po->no_enhance = TRUE;
 			compare_sequences(sequences);
 			uglyTime("compare_sequences1", s_rows);
         	init_dis();
@@ -62,7 +66,7 @@ int main(int argc, char* argv[])
             make_graph (addSuffix(po->FN, ".closures"));
 			uglyTime("make_graph1", s_rows);
 
-			po->no_enhance =TRUE; po->middle_enhance = FALSE;
+			po->no_enhance =TRUE;
 			compare_sequences(sequences);
 			uglyTime("compare_sequences2", s_rows);
             init_dis();

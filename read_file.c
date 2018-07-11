@@ -424,6 +424,8 @@ void read_sequences(FILE* fp1 )
         free (buffer);
 	fseek(fp1, 0, 0);
 }
+
+
 /***********************************************************************/
 /*read a combined file containing reference genomes for all the confirmed operons*/
 void read_reference_genome (FILE* fp)

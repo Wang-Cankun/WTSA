@@ -88,6 +88,7 @@ static void init_options ()
 	po->COL_WIDTH = 3;
 	po->TOLERANCE = 1;
     	po->FP = NULL;
+	    po->FH =NULL;
 	po->RPT_BLOCK = 10;
 	po->SCH_BLOCK = 200;
         po->FIRST = 3; 
@@ -154,6 +155,7 @@ void get_options (int argc, char* argv[])
 		switch (op)
 		{
                         case 'i': strcpy(po->FN, optarg); po->IS_sequence =TRUE; break;
+			/*case '0': strcpy(po->FH, optarg); po->IS_height =TRUE; break;*/
 			case 'j': strcpy(po->BN, optarg); po->IS_SWITCH = TRUE; break;
 			case 'r': strcpy(po->CN, optarg); po->IS_closure = TRUE; break;
 			case 'g': strcpy(po->GN, optarg);  po->IS_reference = TRUE;break;	  
@@ -208,6 +210,7 @@ void get_options (int argc, char* argv[])
 	if (argc==1) { puts(USAGE); exit(0);}
 	/* read the input files  */
 	if (po->IS_sequence) po->FP = mustOpen(po->FN, "r");
+	/*if (po->IS_height) po->FH = mustOpen(po->FN, "r");*/
 	if (po->IS_SWITCH)  po->FB = mustOpen(po->BN, "r");
 	if (po->IS_closure)  po->FC = mustOpen(po->CN, "r");
 	if (po->IS_reference) po->FG = mustOpen(po->GN, "r");

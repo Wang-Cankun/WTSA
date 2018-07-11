@@ -110,7 +110,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 {
 	
 	int i,j,p,q,k;
-	/*uglyTime("compare first start", i);*/
+	uglyTime("compare first start", i);
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
         d2 = alloc2dd (s_cols,s_cols);
@@ -143,8 +143,8 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					/*if (j>0 && q>0 ) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
 					else*/ d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					/* set a threshold for d1 */
-					if (d1[j][q] < po->threshold) continue;
-					else
+					/*if (d1[j][q] < po->threshold) continue;
+					else*/
 						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
         			}
       			}
@@ -254,11 +254,11 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					}
 					/*set a threshold for d1*/
-					if (d1[j][q] <po->threshold)  continue;
-					else
+					/*if (d1[j][q] <po->threshold)  continue;
+					else*/
 						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
 					/*set a threshold for d2*/
-					if (d2[j][q] < po->threshold_1) { d2[j][q]=0; continue;}
+					/*if (d2[j][q] < po->threshold_1) { d2[j][q]=0; continue;}*/
 
 					/*find local optimization of q in the first peak matrix*/
 					min = MIN (q+po->local2, s_col[p]);
@@ -413,17 +413,17 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 						
 					}
-					if (d1[j][q] <po->threshold)
+					/*if (d1[j][q] <po->threshold)
 					{
 						if ((match[j]) && (match1[q])) continue;
 						else { d4[j][q].score=0; continue;}
 					}
-					else
+					else*/
 						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
-					if (d2[j][q] < po->threshold_2)
+					/*if (d2[j][q] < po->threshold_2)
 					{
 						if ((match[j]) && (match1[q])) continue;
-						else { /*d4[j][q].score=0;*/ continue;}
+						else { /*d4[j][q].score=0; continue;}
 					}
 					/*local optimize for d2*/
 					min = MIN (q+po->local3, s_col[p]);
