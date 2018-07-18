@@ -80,8 +80,11 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
        {
                /* we consider the conserve proporty of two ends of motif*/
                num=(po->end_weight)*num;
-               for (pos=lower;pos<upper;pos++)
+               for (pos=lower;pos<upper;pos++){
 		       num -= fre_matrix[seq2][seq_matrix[seq1][pos1+pos]][pos2+pos]*(po->end_weight-1);
+	       }
+	       num = num*1.8;
+		       
        }
        if (po->SequenceWeight)
                num = num*(SequenceWeight[seq1]+SequenceWeight[seq2]);
