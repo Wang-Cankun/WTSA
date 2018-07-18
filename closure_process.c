@@ -59,7 +59,8 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 {
         int i=0;
         continuous num=0;
-	continuous binomial[] ={0.0
+	continuous binomial[] ={
+0.0
 ,0.0
 ,0.0
 ,0.0
@@ -68,22 +69,22 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 ,0.0
 ,0.0
 ,0.0
-,0.0
-,2.162305
-,2.231444
-,2.246267
-,2.248593
-,2.248871
-,2.248896
-,2.248897
-,2.248897};
+,2.2
+,2.9
+,3.6
+,4.4
+,5.4
+,6.4
+,7.6
+,9.1
+,10.8};
         for(i=0;i<motif_length;i++){
 		if(pos1+i<MAX_SEQUENCE_LENGTH){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
 		}
 	}
-	/*printf("%f",num);*/
-        return binomial[(int)num];
+	/*printf("%f\n",num);*/
+        return (binomial[(int)num]);
 }
 
 /************************************************************************/
@@ -99,15 +100,15 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
 ,0.0
 ,0.0
 ,0.0
-,0.0
-,2.162305
-,2.231444
-,2.246267
-,2.248593
-,2.248871
-,2.248896
-,2.248897
-,2.248897};
+,3.0
+,4.0
+,5.0
+,5.0
+,6.0
+,7.0
+,9.0
+,10.0
+,12.0};
        continuous num= init;
        if (po->no_enhance)
 	
