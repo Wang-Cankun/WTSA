@@ -70,6 +70,7 @@ discrete **arr_v;
 discrete **clo_matr;
 discrete **clo_matr1;
 char **sequences;
+int  **height;
 char *sequences_all;
 char **sequences_regulon;
 discrete size_closure;
@@ -106,7 +107,7 @@ continuous ***sco2_all;
 /*improve the algorithm by change A T C G to 0 1 2 3*/
 discrete **seq_matrix;
 discrete ***fre_matrix;
-discrete ***height_matrix;
+discrete **height_matrix;
 
 
 /*int clo_init_1, clo_init_2;*/

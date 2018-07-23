@@ -322,6 +322,7 @@ void read_sequences(FILE* fp1 )
         /* read in the sequences*/
         rewind(fp1);
         sequences= alloc2c(s_rows,MAX_SEQUENCE_LENGTH);
+	height_matrix= alloc2d(s_rows,MAX_SEQUENCE_LENGTH);
 	
 	/* change A T C G to 0 1 2 3*/
         seq_matrix = alloc2d(s_rows,MAX_SEQUENCE_LENGTH);
@@ -332,6 +333,7 @@ void read_sequences(FILE* fp1 )
                 for (j=0;j<MAX_SEQUENCE_LENGTH; j++)
                 {
                         seq_matrix[i][j] = 0;
+                        height_matrix[i][j] = 0;
                 }
         }
 		
@@ -341,6 +343,8 @@ void read_sequences(FILE* fp1 )
         while(fgets(buffer,MAX_SEQUENCE_LENGTH,fp1)!=NULL)
         {
 		/* case insensitive */
+                char s[1] = ",";
+                char *token =NULL;
 		if(buffer[0]=='A'||buffer[0]=='T'||buffer[0]=='G'||buffer[0]=='C'||buffer[0]=='a'||buffer[0]=='t'||buffer[0]=='g'||buffer[0]=='c'||buffer[0]=='N'||buffer[0]=='n')
                 {
                         t=1;
@@ -353,6 +357,36 @@ void read_sequences(FILE* fp1 )
 				if (buffer[j-k]=='G' || buffer[j-k]=='g') seq_matrix[i][j] = 1;
 			}
                         k=k+strlen(buffer)-1;
+                }
+                else if(buffer[0]>= '0' && buffer[0] <= '9' )
+                {
+                        //printf("%d\n",strlen(buffer));
+                        /*token = strtok(buffer, s);*/
+                        token = strtok(buffer, s);
+                        j=0;
+                        while (token&&j<k+strlen(buffer)-1) {
+                        height_matrix[i][j] = atoi(token);
+                        //printf("%s\t\n",token);
+                        /*printf("%d\t%d\t%d\t\n",i,j,height_matrix[i][j]);*/
+                        token = strtok(NULL, ",");
+                        j++;
+                        }
+                        
+                        /*for (j=0;j<strlen(buffer);j++)
+			{       
+                                /*
+                                if(i==0)
+                                {   
+                                token = strtok(NULL,s);
+                                }
+                                else
+                                {
+                                height[i][j] = atoi(token);
+                                
+                                printf("%d\n",atoi(token));
+                                
+				
+			}*/
                 }
                 else
                 {

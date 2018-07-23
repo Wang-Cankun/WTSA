@@ -139,7 +139,6 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					if (matrix3[p][q]) continue; /*check matrix_no_continuous_equal*/
 					/*do not compare with itself*/
 					if (q==j && i==p) { d1[j][q]=0; continue;}
-
 					/*if (j>0 && q>0 ) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
 					else*/ d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					/* set a threshold for d1 */

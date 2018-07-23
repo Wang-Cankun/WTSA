@@ -99,7 +99,7 @@ continuous binomial14[] ={
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
 		}
 	}
-	/*printf("%f\n",num);*/
+	
         return (binomial14[(int)num]);
 }
 
@@ -164,13 +164,54 @@ double binomial14[] ={
                num = num*(SequenceWeight[seq1]+SequenceWeight[seq2]);
        }*/
 
+	int temp_largest;
+	int max1 = height_matrix[seq1][0];
+	int max2 = height_matrix[seq2][0];
+	for (temp_largest = 1; temp_largest < pos1; temp_largest++)
+	{
+		if (height_matrix[seq1][temp_largest] > max1)
+		{
+		max1 = height_matrix[seq1][temp_largest];
+		}
+            
+	}
+	for (temp_largest = 1; temp_largest < pos2; temp_largest++)
+	{
+		if (height_matrix[seq2][temp_largest] > max2)
+		{
+		max2 = height_matrix[seq2][temp_largest];
+		}
+            
+	}
+        
 
+	/*printf("%d\t%d\t\n",max1,max2);*/
+	//num = num * (log(height_matrix[seq1][pos1])/log(max1)+log(height_matrix[seq2][pos2])/log(max2));
+	/*printf("%d\t\n",height_matrix[seq1][pos1]);*/
 	if(num<15.0){
        		return (binomial14[(int)num]);
 	}else {
 	return (binomial14[13]);
 	}
 }
+
+// C function to find maximum in arr[] of size n
+int largest(int arr[], int n)
+{
+    int i;
+    
+    // Initialize maximum element
+    int max = arr[0];
+ 
+    // Traverse array elements from second and
+    // compare every element with current max  
+    for (i = 1; i < n; i++)
+        if (arr[i] > max)
+            max = arr[i];
+ 
+    return max;
+}
+ 
 
 /************************************************************************/
 continuous palindromic_pro (char *consensus, int forepart)
