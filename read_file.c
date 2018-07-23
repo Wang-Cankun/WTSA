@@ -294,7 +294,7 @@ void read_sequences(FILE* fp1 )
                 {
                         atom = strtok(buffer, delims);
                         if (strlen(atom)>2000)
-                                errAbort("\nSorry, the title of squence is too long (>2000 chars)\n");
+                        errAbort("\nSorry, the title of squence is too long (>2000 chars)\n");
                         strcpy(SequenceInfo[SequenceId++], atom);
                 }
         }

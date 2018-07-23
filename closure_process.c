@@ -59,8 +59,7 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 {
         int i=0;
         continuous num=0;
-	continuous binomial[] =
-{
+	continuous binomial18[] ={
 0.0
 ,0.0
 ,0.0
@@ -69,26 +68,18 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 ,0.0
 ,0.0
 ,0.0
-,4.0
-,4.0
-,5.0
-,6.0
-,8.0
-,9.0};
-        for(i=0;i<motif_length;i++){
-		if(pos1+i<MAX_SEQUENCE_LENGTH){
-		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
-		}
-	}
-	/*printf("%f\n",num);*/
-        return (binomial[(int)num]+num);
-}
+,0.0
+,2.2
+,2.9
+,3.6
+,4.4
+,5.4
+,6.4
+,7.6
+,9.1
+,10.8};
 
-/************************************************************************/
-continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1, int pos2, int lower, int upper, continuous init)
-{
-       int pos=0;
-       double binomial[] = {
+continuous binomial14[] ={
 0.0
 ,0.0
 ,0.0
@@ -103,12 +94,56 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
 ,5.5
 ,6.8
 ,8.4};
+        for(i=0;i<motif_length;i++){
+		if(pos1+i<MAX_SEQUENCE_LENGTH){
+		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
+		}
+	}
+	/*printf("%f\n",num);*/
+        return (binomial14[(int)num]);
+}
+
+/************************************************************************/
+continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1, int pos2, int lower, int upper, continuous init)
+{
+       int pos=0;
+       double binomial18[] ={
+0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,2.2
+,2.9
+,3.6
+,4.4
+,5.4
+,6.4
+,7.6
+,9.1
+,10.8};
+
+double binomial14[] ={
+0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,0.0
+,2.7
+,3.5
+,4.4
+,5.5
+,6.8
+,8.4};
+
        continuous num= init;
-       if (po->no_enhance)
-	
-               num = num*2;
-       return num;
-       
        if (po->middle_enhance)
        {
                for (pos=lower;pos<upper;pos++)
@@ -118,13 +153,23 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
                num = 2*num;
        else
        {
-	       continue;
-               /* we consider the conserve proporty of two ends of motif
+               /* we consider the conserve proporty of two ends of motif*/
                num=(po->end_weight)*num;
-               for (pos=lower;pos<upper;pos++)
+               for (pos=lower;pos<upper;pos++){
 		       num -= fre_matrix[seq2][seq_matrix[seq1][pos1+pos]][pos2+pos]*(po->end_weight-1);
+	       }
+		       
+       }
+       /*if (po->SequenceWeight){
+               num = num*(SequenceWeight[seq1]+SequenceWeight[seq2]);
        }*/
-       
+
+
+	if(num<15.0){
+       		return (binomial14[(int)num]);
+	}else {
+	return (binomial14[13]);
+	}
 }
 
 /************************************************************************/
