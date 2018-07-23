@@ -52,13 +52,12 @@ int main(int argc, char* argv[])
 		{
 			po->MOTIFLENGTH = length_motif;   
 			/* compare the input sequences in fasta format */
-			po->no_enhance = TRUE;
 			compare_sequences(sequences);
 			init_dis();
 			/* find motif seeds from the graph we constructed*/
 			make_graph (addSuffix(po->FN, ".closures"));
 			
-			po->no_enhance = TRUE;
+			po->middle_enhance = TRUE;
 			compare_sequences(sequences);
 			uglyTime("compare_sequences1", s_rows);
         	init_dis();
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
             make_graph (addSuffix(po->FN, ".closures"));
 			uglyTime("make_graph1", s_rows);
 
-			po->no_enhance =TRUE;
+			po->no_enhance =TRUE;po->middle_enhance = FALSE;
 			compare_sequences(sequences);
 			uglyTime("compare_sequences2", s_rows);
             init_dis();

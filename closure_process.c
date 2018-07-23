@@ -88,7 +88,8 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1, int pos2, int lower, int upper, continuous init)
 {
        int pos=0;
-       double binomial[] = {0.0
+       double binomial[] = {
+0.0
 ,0.0
 ,0.0
 ,0.0
@@ -96,22 +97,18 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
 ,0.0
 ,0.0
 ,0.0
-,0.0
-,3.0
-,4.0
-,5.0
-,5.0
-,6.0
-,7.0
-,9.0
-,10.0
-,12.0};
+,2.7
+,3.5
+,4.4
+,5.5
+,6.8
+,8.4};
        continuous num= init;
        if (po->no_enhance)
 	
                num = num*2;
        return num;
-       /*
+       
        if (po->middle_enhance)
        {
                for (pos=lower;pos<upper;pos++)
@@ -121,6 +118,7 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
                num = 2*num;
        else
        {
+	       continue;
                /* we consider the conserve proporty of two ends of motif
                num=(po->end_weight)*num;
                for (pos=lower;pos<upper;pos++)
