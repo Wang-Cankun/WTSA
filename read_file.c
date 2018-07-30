@@ -365,9 +365,16 @@ void read_sequences(FILE* fp1 )
                         token = strtok(buffer, s);
                         j=0;
                         while (token&&j<k+strlen(buffer)-1) {
-                        height_matrix[i][j] = atoi(token);
+                        if(atoi(token)==0) {
+                        height_matrix[i][j] = 1;
+                        }
+                        else {
+                                height_matrix[i][j] = atoi(token);
+                                
+                        }
+                        
                         //printf("%s\t\n",token);
-                        /*printf("%d\t%d\t%d\t\n",i,j,height_matrix[i][j]);*/
+                        /*printf("%d\t%d\t%s\t\n",i,j,token);*/
                         token = strtok(NULL, ",");
                         j++;
                         }

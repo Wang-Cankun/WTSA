@@ -186,13 +186,19 @@ double binomial14[] ={
         
 
 	/*printf("%d\t%d\t\n",max1,max2);*/
-	//num = num * (log(height_matrix[seq1][pos1])/log(max1)+log(height_matrix[seq2][pos2])/log(max2));
+	/*num = num * (log10f((float)height_matrix[seq1][pos1])/log10f((float)max1)+log10f((float)height_matrix[seq2][pos2])/log10f((float)max2));*/
 	/*printf("%d\t\n",height_matrix[seq1][pos1]);*/
 	if(num<15.0){
-       		return (binomial14[(int)num]);
+       		num = (binomial14[(int)num]);
 	}else {
-	return (binomial14[13]);
+	num = (binomial14[13]);
 	}
+	/*printf("%f\t%d\t\n",num,max2);*/
+	num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
+	if(max2==1){num=0.0;}
+	/*printf("%f\t%d\t\n",num,max2);*/
+	/*printf("%f\t%d\t\n",num,max2);*/
+	return num;
 }
 
 // C function to find maximum in arr[] of size n
