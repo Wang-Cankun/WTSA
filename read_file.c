@@ -374,7 +374,7 @@ void read_sequences(FILE* fp1 )
                         }
                         
                         //printf("%s\t\n",token);
-                        /*printf("%d\t%d\t%s\t\n",i,j,token);*/
+                        //printf("%d\t%d\t%d\t\n",i,j,height_matrix[i][j]);
                         token = strtok(NULL, ",");
                         j++;
                         }
