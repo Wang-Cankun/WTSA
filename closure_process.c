@@ -142,7 +142,6 @@ double binomial14[] ={
 ,5.5
 ,6.8
 ,8.4};
-
        continuous num= init;
        if (po->middle_enhance)
        {
@@ -164,26 +163,7 @@ double binomial14[] ={
                num = num*(SequenceWeight[seq1]+SequenceWeight[seq2]);
        }*/
 
-	int temp_largest;
-	int max1 = height_matrix[seq1][0];
-	int max2 = height_matrix[seq2][0];
-	for (temp_largest = 1; temp_largest < pos1; temp_largest++)
-	{
-		if (height_matrix[seq1][temp_largest] > max1)
-		{
-		max1 = height_matrix[seq1][temp_largest];
-		}
-            
-	}
-	for (temp_largest = 1; temp_largest < pos2; temp_largest++)
-	{
-		if (height_matrix[seq2][temp_largest] > max2)
-		{
-		max2 = height_matrix[seq2][temp_largest];
-		}
-            
-	}
-        
+	
 	/*printf("%d\t%d\t\n",max1,max2);*/
 	/*num = num * (log10f((float)height_matrix[seq1][pos1])/log10f((float)max1)+log10f((float)height_matrix[seq2][pos2])/log10f((float)max2));*/
 	/*printf("%d\t\n",height_matrix[seq1][pos1]);*/
@@ -194,9 +174,9 @@ double binomial14[] ={
 	}
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
-	num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
+	//num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
 	
-	if(max2==1){num=0.0;}
+	//if(max2==1){num=0.0;}
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
 	return num;

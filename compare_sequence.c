@@ -110,6 +110,9 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 {
 	
 	int i,j,p,q,k;
+	int temp_largest;
+	int max1;
+	int max2;
 	uglyTime("compare first start", i);
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
@@ -119,6 +122,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 	if (!po->middle_enhance && !po->no_enhance)
 		printf ("\nMotif length is: %d\nSignal strengthening started\n", po->MOTIFLENGTH);
 	fflush(stdout);
+	//printf("1%d\t\n",s_rows);
 	for(i=0;i<s_rows;i++)
 	{
 		/* one dot represent ten sequences */
@@ -126,6 +130,28 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 		/*uglyTime("first for i=%d", i);*/
 		for(p=i;p<s_rows;p++)
 		{
+					max1 = height_matrix[i][0];
+					max2 = height_matrix[p][0];
+        	for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
+					{
+						//printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);
+						if (height_matrix[i][temp_largest] > max1)
+						{
+						max1 = height_matrix[i][temp_largest];
+						}
+							
+					}
+					for (temp_largest = 1; temp_largest < s_col[p]; temp_largest++)
+					{
+						//printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);
+						if (height_matrix[p][temp_largest] > max2)
+						{
+						max2 = height_matrix[p][temp_largest];
+						}
+							
+					}
+
+
 			/*initialize the values of d1*/
 			for (j=0;j<s_col[i];j++)
 				for (q=0;q<s_col[p];q++)
@@ -136,16 +162,25 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 				if (matrix3[i][j])   continue; /*check matrix_no_continuous_equal*/
 				for(q=0;q<s_col[p];q++)
 				{
+					max1 = height_matrix[i][0];
+					max2 = height_matrix[p][0];
+					
+					
 					if (matrix3[p][q]) continue; /*check matrix_no_continuous_equal*/
 					/*do not compare with itself*/
 					if (q==j && i==p) { d1[j][q]=0; continue;}
+					
 					/*if (j>0 && q>0 ) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
 					else*/ d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
+					
 					/* set a threshold for d1 */
-					if (d1[j][q] ==0.0) continue;
-					else
-						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
+					if (d1[j][q] ==0.0) {continue;}
+					if (max2==1) {d2[j][q]=0.0;}
+					else {
+							d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/logf((float)max1)+log1pf((float)height_matrix[p][q])/logf((float)max2));
+						}
         			}
+					//printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max2);
       			}
 
 			/* initialize match and match1 */
@@ -239,9 +274,10 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 				min = MIN (j+po->local2, s_col[i]);
 				j1=j; /*j1 is used to store the optimal position of current j in matrix*/
 				min1 = matrix[i][j1];
-				for (k=j+1;k<min;k++)
+				for (k=j-2;k<j+3;k++)
+					if((k>=0&&k<=s_col[i])){
 					if (matrix[i][k] >= min1) { j1=k; min1 = matrix[i][k];}
-
+					}
 				for(q=0;q<s_col[p];q++)
 				{
 					if (matrix3[p][q]) continue; /*check matrix_no_continuous_equal*/
@@ -260,10 +296,13 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 
 					/*find local optimization of q in the first peak matrix*/
 					min = MIN (q+po->local2, s_col[p]);
+					//printf("min=%d\t\n",min);
 					q1=q; /*q1 is used to store the optimal position of q in matrix*/
 					min1 = matrix[p][q1];
-					for (k=q+1;k<min;k++)
+					for (k=q-2;k<q+3;k++)
+						if((k>=0&&k<=s_col[p])){
 						if (matrix[p][k] >= min1) { q1=k; min1 = matrix[p][k]+matrix[p][k+1];}
+						}
 					/* delete the edge with high weight but low value in matrix*/
 					/*if (matrix[i][j1]+matrix[p][q1] <= 1) {d2[j][q]=0; continue;}*/
 					/* calculate d2 base on d1*/
@@ -394,9 +433,11 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 				min = MIN (j+po->local3, s_col[i]);
 				j1=j;
 				min1 = matrix1[i][j1];
-				for (k=j+1;k<min;k++)
+				for (k=j-2;k<j+3;k++)
+					if((k>=0&&k<=s_col[i])){
 					if (matrix1[i][k] > min1)
 						{ j1=k; min1 = matrix1[i][k];}
+					}
 				for(q=0;q<s_col[p];q++)
 				{
 					if (matrix3[p][q])  continue;
@@ -427,9 +468,11 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 					min = MIN (q+po->local3, s_col[p]);
 					q1=q;
 					min1 = matrix1[p][q1];
-					for (k=q+1;k<min;k++)
-						if (matrix1[p][k] > min1)
-							{ q1=k;	min1 = matrix1[p][k];}
+					for (k=q-2;k<q+3;k++)
+						if(k>=0&&k<=s_col[p]){
+							if (matrix1[p][k] > min1)
+								{ q1=k;	min1 = matrix1[p][k];}
+						}
 
 					if (matrix1[i][j1]+matrix1[p][q1] <=3)
 					{

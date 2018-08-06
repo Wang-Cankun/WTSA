@@ -75,6 +75,7 @@ char *sequences_all;
 char **sequences_regulon;
 discrete size_closure;
 continuous **p_markov;
+continuous **td_markov;
 /*simlation sequence - bingqiang*/
 char **simulation_sequence;
 discrete *symbols;

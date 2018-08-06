@@ -462,6 +462,7 @@ void read_sequences(FILE* fp1 )
 
         /*the markov processing, generate a markov matrix so that we can simulate sequences*/
         p_markov = markov(sequences,s_rows);
+        td_markov = d_markov(sequences,s_rows);
         free (buffer);
 	fseek(fp1, 0, 0);
 }

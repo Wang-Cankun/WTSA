@@ -2,6 +2,7 @@
 #define _CLOSURE_PROCESS_H
 
 #include "struct.h"
+continuous **d_markov (char **sequences_r, int seq_num);
 continuous **markov (char **sequences_r, int seq_num);
 continuous aver_score_closure(char **sequences_2, continuous **scoreM, continuous *score, int motif_number, int length_local_1);
 int motif_num_closure (Reference_genome *genome_1, int motif_length, continuous **scoreM, continuous thre);

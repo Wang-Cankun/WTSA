@@ -23,5 +23,6 @@ extern bool palindromic_pro_1 (char *consensus, int forepart);
 
 /*from pvalue*/
 extern continuous **markov (char **sequences, int seq_num);
+extern continuous **d_markov (char **sequences, int seq_num);
 
 #endif
