@@ -12,7 +12,7 @@ Datafile: testr_exo.txt
 Alphabet: A G C T
 Nucleotides composition:	A: 0.26   G: 0.24   C: 0.24   T: 0.26
 Sequences number: 30
-Nucleotides number: 12000
+Nucleotides number: 11970
 
 Sequence name		Length
 NC_000913.2:70324-70724		400
@@ -71,7 +71,7 @@ Lower limit of motif conservation level (-N)	6
  Motif length: 14
  Motif number: 28
  Seed number: 5
- Motif Pvalue: 1.396E-037 (3685)
+ Motif Pvalue: 1.221E-040 (3991)
 
 
 ------------------- Motif Seed------------------
@@ -136,7 +136,7 @@ TTAATAATAATAAT
  Motif length: 14
  Motif number: 25
  Seed number: 3
- Motif Pvalue: 2.036E-032 (3169)
+ Motif Pvalue: 1.248E-033 (3290)
 
 
 ------------------- Motif Seed------------------
@@ -194,60 +194,9 @@ AAATGAAAATAATT
 *********************************************************
 
  Motif length: 14
- Motif number: 16
- Seed number: 3
- Motif Pvalue: 2.456E-029 (2860)
-
-
-------------------- Motif Seed------------------
-TGATAATCTTTCTC
-TGATAAGCATTATC
-TAATTATCGTTATC
-
-------------------- Position weight matrix------------------
-	1	2	3	4	5	6	7	8	9	10	11	12	13	14
-A	0	1	3	0	2	3	0	0	1	0	0	2	0	0	
-G	0	2	0	0	0	0	1	0	1	0	0	0	0	0	
-C	0	0	0	0	0	0	0	3	0	0	0	1	0	3	
-T	3	0	0	3	1	0	2	0	1	3	3	0	3	0	
-IC	1.64	0.91	1.67	1.64	0.85	1.67	0.86	1.76	0.31	1.64	1.64	0.88	1.64	1.76
-
-------------------- Consensus sequences------------------
-TGATAATCATTATC
-**************
-**************
-******** *****
-* ** * * ** **
-
-------------------- Aligned Motif ------------------
-#Motif	Seq	start	end	Motif		Score	Info
->Motif-3	23	209	222	TGATAATCTTTCTC	18.26	NC_000913.2:674780-675180
->Motif-3	24	190	203	TGATAATCTTTCTC	18.26	NC_000913.2:674799-675199
->Motif-3	4	176	189	TAATAATCATTCTC	18.09	NC_000913.2:167256-167656
->Motif-3	28	183	196	TGATAATAATTCTC	17.34	NC_000913.2:786663-787063
->Motif-3	29	189	202	TGATAAGCATTATC	16.96	NC_000913.2:840681-841081
->Motif-3	17	221	234	TAATTATCGTTATC	16.76	NC_000913.2:621215-621615
->Motif-3	18	190	203	TAATTATCGTTATC	16.76	NC_000913.2:621246-621646
->Motif-3	19	345	332	TAATAATGATTATC	15.26	NC_000913.2:623734-624134
->Motif-3	20	319	306	TAATAATGATTATC	15.26	NC_000913.2:623760-624160
->Motif-3	21	236	223	TAATAATGATTATC	15.26	NC_000913.2:623843-624243
->Motif-3	22	204	191	TAATAATGATTATC	15.26	NC_000913.2:623875-624275
->Motif-3	29	203	190	TGATAATGCTTATC	13.89	NC_000913.2:840681-841081
->Motif-3	19	331	344	TGATAATCATTATT	13.16	NC_000913.2:623734-624134
->Motif-3	20	305	318	TGATAATCATTATT	13.16	NC_000913.2:623760-624160
->Motif-3	21	222	235	TGATAATCATTATT	13.16	NC_000913.2:623843-624243
->Motif-3	22	190	203	TGATAATCATTATT	13.16	NC_000913.2:623875-624275
-----------------------------------------------------
-
-
-*********************************************************
- Candidate Motif   4
-*********************************************************
-
- Motif length: 14
  Motif number: 21
  Seed number: 7
- Motif Pvalue: 4.815E-028 (2731)
+ Motif Pvalue: 1.072E-030 (2996)
 
 
 ------------------- Motif Seed------------------
@@ -276,27 +225,78 @@ TGATAATAATTATC
 
 ------------------- Aligned Motif ------------------
 #Motif	Seq	start	end	Motif		Score	Info
->Motif-4	19	331	344	TGATAATCATTATT	17.96	NC_000913.2:623734-624134
->Motif-4	20	305	318	TGATAATCATTATT	17.96	NC_000913.2:623760-624160
->Motif-4	21	222	235	TGATAATCATTATT	17.96	NC_000913.2:623843-624243
->Motif-4	22	190	203	TGATAATCATTATT	17.96	NC_000913.2:623875-624275
->Motif-4	23	209	222	TGATAATCTTTCTC	17.07	NC_000913.2:674780-675180
->Motif-4	24	190	203	TGATAATCTTTCTC	17.07	NC_000913.2:674799-675199
->Motif-4	28	183	196	TGATAATAATTCTC	16.50	NC_000913.2:786663-787063
->Motif-4	29	189	202	TGATAAGCATTATC	15.30	NC_000913.2:840681-841081
->Motif-4	29	203	190	TGATAATGCTTATC	13.17	NC_000913.2:840681-841081
->Motif-4	4	176	189	TAATAATCATTCTC	12.80	NC_000913.2:167256-167656
->Motif-4	29	177	190	TGATAATAATTTTG	12.74	NC_000913.2:840681-841081
->Motif-4	19	224	211	TGAGAAGCATTATT	10.78	NC_000913.2:623734-624134
->Motif-4	20	198	185	TGAGAAGCATTATT	10.78	NC_000913.2:623760-624160
->Motif-4	21	115	102	TGAGAAGCATTATT	10.78	NC_000913.2:623843-624243
->Motif-4	22	83	70	TGAGAAGCATTATT	10.78	NC_000913.2:623875-624275
->Motif-4	19	339	326	TGATTATCATTTAT	10.76	NC_000913.2:623734-624134
->Motif-4	20	313	300	TGATTATCATTTAT	10.76	NC_000913.2:623760-624160
->Motif-4	21	230	217	TGATTATCATTTAT	10.76	NC_000913.2:623843-624243
->Motif-4	22	198	185	TGATTATCATTTAT	10.76	NC_000913.2:623875-624275
->Motif-4	28	197	184	TGAGAATTATTATC	10.56	NC_000913.2:786663-787063
->Motif-4	26	223	210	TGATGCTTATTCTC	10.52	NC_000913.2:745599-745999
+>Motif-3	19	331	344	TGATAATCATTATT	17.96	NC_000913.2:623734-624134
+>Motif-3	20	305	318	TGATAATCATTATT	17.96	NC_000913.2:623760-624160
+>Motif-3	21	222	235	TGATAATCATTATT	17.96	NC_000913.2:623843-624243
+>Motif-3	22	190	203	TGATAATCATTATT	17.96	NC_000913.2:623875-624275
+>Motif-3	23	209	222	TGATAATCTTTCTC	17.07	NC_000913.2:674780-675180
+>Motif-3	24	190	203	TGATAATCTTTCTC	17.07	NC_000913.2:674799-675199
+>Motif-3	28	183	196	TGATAATAATTCTC	16.50	NC_000913.2:786663-787063
+>Motif-3	29	189	202	TGATAAGCATTATC	15.30	NC_000913.2:840681-841081
+>Motif-3	29	203	190	TGATAATGCTTATC	13.17	NC_000913.2:840681-841081
+>Motif-3	4	176	189	TAATAATCATTCTC	12.80	NC_000913.2:167256-167656
+>Motif-3	29	177	190	TGATAATAATTTTG	12.74	NC_000913.2:840681-841081
+>Motif-3	19	224	211	TGAGAAGCATTATT	10.78	NC_000913.2:623734-624134
+>Motif-3	20	198	185	TGAGAAGCATTATT	10.78	NC_000913.2:623760-624160
+>Motif-3	21	115	102	TGAGAAGCATTATT	10.78	NC_000913.2:623843-624243
+>Motif-3	22	83	70	TGAGAAGCATTATT	10.78	NC_000913.2:623875-624275
+>Motif-3	19	339	326	TGATTATCATTTAT	10.76	NC_000913.2:623734-624134
+>Motif-3	20	313	300	TGATTATCATTTAT	10.76	NC_000913.2:623760-624160
+>Motif-3	21	230	217	TGATTATCATTTAT	10.76	NC_000913.2:623843-624243
+>Motif-3	22	198	185	TGATTATCATTTAT	10.76	NC_000913.2:623875-624275
+>Motif-3	28	197	184	TGAGAATTATTATC	10.56	NC_000913.2:786663-787063
+>Motif-3	26	223	210	TGATGCTTATTCTC	10.52	NC_000913.2:745599-745999
+----------------------------------------------------
+
+
+*********************************************************
+ Candidate Motif   4
+*********************************************************
+
+ Motif length: 14
+ Motif number: 16
+ Seed number: 3
+ Motif Pvalue: 4.356E-027 (2636)
+
+
+------------------- Motif Seed------------------
+TGATAATCTTTCTC
+TGATAAGCATTATC
+TAATTATCGTTATC
+
+------------------- Position weight matrix------------------
+	1	2	3	4	5	6	7	8	9	10	11	12	13	14
+A	0	1	3	0	2	3	0	0	1	0	0	2	0	0	
+G	0	2	0	0	0	0	1	0	1	0	0	0	0	0	
+C	0	0	0	0	0	0	0	3	0	0	0	1	0	3	
+T	3	0	0	3	1	0	2	0	1	3	3	0	3	0	
+IC	1.64	0.91	1.67	1.64	0.85	1.67	0.86	1.76	0.31	1.64	1.64	0.88	1.64	1.76
+
+------------------- Consensus sequences------------------
+TGATAATCATTATC
+**************
+**************
+******** *****
+* ** * * ** **
+
+------------------- Aligned Motif ------------------
+#Motif	Seq	start	end	Motif		Score	Info
+>Motif-4	23	209	222	TGATAATCTTTCTC	18.26	NC_000913.2:674780-675180
+>Motif-4	24	190	203	TGATAATCTTTCTC	18.26	NC_000913.2:674799-675199
+>Motif-4	4	176	189	TAATAATCATTCTC	18.09	NC_000913.2:167256-167656
+>Motif-4	28	183	196	TGATAATAATTCTC	17.34	NC_000913.2:786663-787063
+>Motif-4	29	189	202	TGATAAGCATTATC	16.96	NC_000913.2:840681-841081
+>Motif-4	17	221	234	TAATTATCGTTATC	16.76	NC_000913.2:621215-621615
+>Motif-4	18	190	203	TAATTATCGTTATC	16.76	NC_000913.2:621246-621646
+>Motif-4	19	345	332	TAATAATGATTATC	15.26	NC_000913.2:623734-624134
+>Motif-4	20	319	306	TAATAATGATTATC	15.26	NC_000913.2:623760-624160
+>Motif-4	21	236	223	TAATAATGATTATC	15.26	NC_000913.2:623843-624243
+>Motif-4	22	204	191	TAATAATGATTATC	15.26	NC_000913.2:623875-624275
+>Motif-4	29	203	190	TGATAATGCTTATC	13.89	NC_000913.2:840681-841081
+>Motif-4	19	331	344	TGATAATCATTATT	13.16	NC_000913.2:623734-624134
+>Motif-4	20	305	318	TGATAATCATTATT	13.16	NC_000913.2:623760-624160
+>Motif-4	21	222	235	TGATAATCATTATT	13.16	NC_000913.2:623843-624243
+>Motif-4	22	190	203	TGATAATCATTATT	13.16	NC_000913.2:623875-624275
 ----------------------------------------------------
 
 
@@ -307,7 +307,7 @@ TGATAATAATTATC
  Motif length: 14
  Motif number: 15
  Seed number: 4
- Motif Pvalue: 1.223E-025 (2491)
+ Motif Pvalue: 5.098E-023 (2229)
 
 
 ------------------- Motif Seed------------------
@@ -358,7 +358,7 @@ AATATAAATGAGAA
  Motif length: 14
  Motif number: 35
  Seed number: 3
- Motif Pvalue: 2.561E-023 (2259)
+ Motif Pvalue: 1.423E-022 (2184)
 
 
 ------------------- Motif Seed------------------
@@ -428,7 +428,7 @@ TTATTAATAATGTT
  Motif length: 14
  Motif number: 10
  Seed number: 3
- Motif Pvalue: 1.671E-021 (2077)
+ Motif Pvalue: 1.033E-019 (1898)
 
 
 ------------------- Motif Seed------------------
@@ -471,6 +471,50 @@ AAAATCATTCTCAA
 *********************************************************
 
  Motif length: 14
+ Motif number: 9
+ Seed number: 3
+ Motif Pvalue: 3.464E-019 (1846)
+
+
+------------------- Motif Seed------------------
+TGATAATCTTTCTC
+TGATAAGCATTATC
+TGATAATCATTATT
+
+------------------- Position weight matrix------------------
+	1	2	3	4	5	6	7	8	9	10	11	12	13	14
+A	0	0	3	0	3	3	0	0	2	0	0	2	0	0	
+G	0	3	0	0	0	0	1	0	0	0	0	0	0	0	
+C	0	0	0	0	0	0	0	3	0	0	0	1	0	2	
+T	3	0	0	3	0	0	2	0	1	3	3	0	3	1	
+IC	1.64	1.74	1.67	1.64	1.67	1.67	0.86	1.76	0.85	1.64	1.64	0.88	1.64	0.90
+
+------------------- Consensus sequences------------------
+TGATAATCATTATC
+**************
+**************
+**************
+****** * ** * 
+
+------------------- Aligned Motif ------------------
+#Motif	Seq	start	end	Motif		Score	Info
+>Motif-8	19	331	344	TGATAATCATTATT	19.85	NC_000913.2:623734-624134
+>Motif-8	20	305	318	TGATAATCATTATT	19.85	NC_000913.2:623760-624160
+>Motif-8	21	222	235	TGATAATCATTATT	19.85	NC_000913.2:623843-624243
+>Motif-8	22	190	203	TGATAATCATTATT	19.85	NC_000913.2:623875-624275
+>Motif-8	19	224	211	TGAGAAGCATTATT	13.82	NC_000913.2:623734-624134
+>Motif-8	20	198	185	TGAGAAGCATTATT	13.82	NC_000913.2:623760-624160
+>Motif-8	21	115	102	TGAGAAGCATTATT	13.82	NC_000913.2:623843-624243
+>Motif-8	22	83	70	TGAGAAGCATTATT	13.82	NC_000913.2:623875-624275
+>Motif-8	29	189	202	TGATAAGCATTATC	13.82	NC_000913.2:840681-841081
+----------------------------------------------------
+
+
+*********************************************************
+ Candidate Motif   9
+*********************************************************
+
+ Motif length: 14
  Motif number: 6
  Seed number: 3
  Motif Pvalue: 2.545E-018 (1759)
@@ -498,56 +542,12 @@ GATATGGATAAGTC
 
 ------------------- Aligned Motif ------------------
 #Motif	Seq	start	end	Motif		Score	Info
->Motif-8	19	371	384	GATATGGATACGTC	19.24	NC_000913.2:623734-624134
->Motif-8	20	345	358	GATATGGATACGTC	19.24	NC_000913.2:623760-624160
->Motif-8	21	262	275	GATATGGATACGTC	19.24	NC_000913.2:623843-624243
->Motif-8	22	230	243	GATATGGATACGTC	19.24	NC_000913.2:623875-624275
->Motif-8	23	103	116	GAGATCGACAGGTC	16.18	NC_000913.2:674780-675180
->Motif-8	24	84	97	GAGATCGACAGGTC	16.18	NC_000913.2:674799-675199
-----------------------------------------------------
-
-
-*********************************************************
- Candidate Motif   9
-*********************************************************
-
- Motif length: 14
- Motif number: 9
- Seed number: 3
- Motif Pvalue: 7.964E-018 (1709)
-
-
-------------------- Motif Seed------------------
-TGATAATCTTTCTC
-TGATAAGCATTATC
-TGATAATCATTATT
-
-------------------- Position weight matrix------------------
-	1	2	3	4	5	6	7	8	9	10	11	12	13	14
-A	0	0	3	0	3	3	0	0	2	0	0	2	0	0	
-G	0	3	0	0	0	0	1	0	0	0	0	0	0	0	
-C	0	0	0	0	0	0	0	3	0	0	0	1	0	2	
-T	3	0	0	3	0	0	2	0	1	3	3	0	3	1	
-IC	1.64	1.74	1.67	1.64	1.67	1.67	0.86	1.76	0.85	1.64	1.64	0.88	1.64	0.90
-
-------------------- Consensus sequences------------------
-TGATAATCATTATC
-**************
-**************
-**************
-****** * ** * 
-
-------------------- Aligned Motif ------------------
-#Motif	Seq	start	end	Motif		Score	Info
->Motif-9	19	331	344	TGATAATCATTATT	19.85	NC_000913.2:623734-624134
->Motif-9	20	305	318	TGATAATCATTATT	19.85	NC_000913.2:623760-624160
->Motif-9	21	222	235	TGATAATCATTATT	19.85	NC_000913.2:623843-624243
->Motif-9	22	190	203	TGATAATCATTATT	19.85	NC_000913.2:623875-624275
->Motif-9	19	224	211	TGAGAAGCATTATT	13.82	NC_000913.2:623734-624134
->Motif-9	20	198	185	TGAGAAGCATTATT	13.82	NC_000913.2:623760-624160
->Motif-9	21	115	102	TGAGAAGCATTATT	13.82	NC_000913.2:623843-624243
->Motif-9	22	83	70	TGAGAAGCATTATT	13.82	NC_000913.2:623875-624275
->Motif-9	29	189	202	TGATAAGCATTATC	13.82	NC_000913.2:840681-841081
+>Motif-9	19	371	384	GATATGGATACGTC	19.24	NC_000913.2:623734-624134
+>Motif-9	20	345	358	GATATGGATACGTC	19.24	NC_000913.2:623760-624160
+>Motif-9	21	262	275	GATATGGATACGTC	19.24	NC_000913.2:623843-624243
+>Motif-9	22	230	243	GATATGGATACGTC	19.24	NC_000913.2:623875-624275
+>Motif-9	23	103	116	GAGATCGACAGGTC	16.18	NC_000913.2:674780-675180
+>Motif-9	24	84	97	GAGATCGACAGGTC	16.18	NC_000913.2:674799-675199
 ----------------------------------------------------
 
 
@@ -558,33 +558,33 @@ TGATAATCATTATC
  Motif length: 14
  Motif number: 4
  Seed number: 3
- Motif Pvalue: 4.163E-014 (1338)
+ Motif Pvalue: 2.603E-015 (1458)
 
 
 ------------------- Motif Seed------------------
-CAATCAATGATAAT
-ACTTCCATGATAAT
-ATATAAATGATAAT
+TTCTTGTTCATTGT
+CTCATTTTCATTGT
+GCCTTTATCATTTT
 
 ------------------- Position weight matrix------------------
 	1	2	3	4	5	6	7	8	9	10	11	12	13	14
-A	2	1	2	0	1	2	3	0	0	3	0	3	3	0	
-G	0	0	0	0	0	0	0	0	3	0	0	0	0	0	
-C	1	1	0	0	2	1	0	0	0	0	0	0	0	0	
-T	0	1	1	3	0	0	0	3	0	0	3	0	0	3	
-IC	0.88	0.31	0.85	1.64	0.91	0.88	1.67	1.64	1.74	1.67	1.64	1.67	1.67	1.64
+A	0	0	0	1	0	0	1	0	0	3	0	0	0	0	
+G	1	0	0	0	0	1	0	0	0	0	0	0	2	0	
+C	1	1	3	0	0	0	0	0	3	0	0	0	0	0	
+T	1	2	0	2	3	2	2	3	0	0	3	3	1	3	
+IC	0.33	0.86	1.76	0.84	1.64	0.86	0.84	1.64	1.76	1.67	1.64	1.64	0.90	1.64
 
 ------------------- Consensus sequences------------------
-AAATCAATGATAAT
+GTCTTTTTCATTGT
 **************
 **************
-* ************
-   *  ********
+ *************
+  * *  ***** *
 
 ------------------- Aligned Motif ------------------
 #Motif	Seq	start	end	Motif		Score	Info
->Motif-10	19	324	337	ATATAAATGATAAT	19.56	NC_000913.2:623734-624134
->Motif-10	20	298	311	ATATAAATGATAAT	19.56	NC_000913.2:623760-624160
->Motif-10	21	215	228	ATATAAATGATAAT	19.56	NC_000913.2:623843-624243
->Motif-10	22	183	196	ATATAAATGATAAT	19.56	NC_000913.2:623875-624275
+>Motif-10	19	221	234	CTCATTTTCATTGT	19.75	NC_000913.2:623734-624134
+>Motif-10	20	195	208	CTCATTTTCATTGT	19.75	NC_000913.2:623760-624160
+>Motif-10	21	112	125	CTCATTTTCATTGT	19.75	NC_000913.2:623843-624243
+>Motif-10	22	80	93	CTCATTTTCATTGT	19.75	NC_000913.2:623875-624275
 ----------------------------------------------------

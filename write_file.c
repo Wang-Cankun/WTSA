@@ -746,7 +746,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         /* 1000: 3 times closure improvement end : ii */
 
         /* 2000:  simulation on markov data begin */
-	int length_ave=0,numberfore=1,randomNum,simulation=po->simu,Rt,num_all_R=0;
+	int length_ave=0,numberfore=1,number_pre=1,number_now=1,randomNum,simulation=po->simu,Rt,num_all_R=0;
         continuous length_ave_1=0;
         for (i=0;i<seq_number;i++)
                 length_ave_1=length_ave_1+strlen(sequences[i]);
@@ -765,12 +765,32 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
 			{
                                 num_all_R++;
                                 for (k=1;k<5;k++)
-                                        pp[k]=p_markov[numberfore][k];
+				{
+                                        pp[k]=td_markov[numberfore][k];
+					number_pre = number_now;
+				}
                                 randomNum=rand()%100;
-                                if (randomNum<pp[1]*100) {randomdata[j]='A';numberfore=1;}
-                                else if (randomNum<(pp[1]+pp[2])*100) {randomdata[j]='G';numberfore=2;}
-                                else if (randomNum<(pp[1]+pp[2]+pp[3])*100) {randomdata[j]='C';numberfore=3;}
-                                else {randomdata[j]='T';numberfore=4;}
+				/*for 3-order markov, pre = (pre - 1) * 4 + now */
+                                if (randomNum<pp[1]*100) 
+				{
+					randomdata[j]='A';numberfore=(number_pre-1)*4+1;
+					number_now = 1;
+				}
+                                else if (randomNum<(pp[1]+pp[2])*100) 
+				{
+					randomdata[j]='G';numberfore=(number_pre-1)*4+2;
+					number_now = 2;
+				}
+                                else if (randomNum<(pp[1]+pp[2]+pp[3])*100) 
+				{
+					randomdata[j]='C';numberfore=(number_pre-1)*4+3;
+					number_now = 3;
+				}
+                                else 
+				{
+					randomdata[j]='T';numberfore=(number_pre-1)*4+4;
+					number_now = 4;
+				}
                         } 
 			randomdata_number = change_AGCT_to_num(randomdata,length_ave);
                         for(j=0;j<length_ave-length_local_1+1;j++)  

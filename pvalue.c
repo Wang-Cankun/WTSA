@@ -136,41 +136,43 @@ continuous **d_markov (char **sequences_r, int seq_num)
                 j = strlen(sequences_r[i]);
 		
 
-			if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='A') flag_markov=1;
-                        else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='a') flag_markov=1;
-			else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='T') flag_markov=2;
-                        else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='t') flag_markov=2;
-			else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='C') flag_markov=3;
-                        else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='c') flag_markov=3;
-			else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='G') flag_markov=4;
-                        else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='g') flag_markov=4;
+	if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]== 'A') flag_markov=1;
+else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='a') flag_markov=1;
+else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='G') flag_markov=2;
+else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='g') flag_markov=2;
+else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='C') flag_markov=3;
+else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='c') flag_markov=3;
+else if (sequences_r[i][j-2]=='A' && sequences_r[i][j-1]=='T') flag_markov=4;
+else if (sequences_r[i][j-2]=='a' && sequences_r[i][j-1]=='t') flag_markov=4;
 
-                        else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='A') flag_markov=5;
-                        else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='a') flag_markov=5;
-			else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='T') flag_markov=6;
-                        else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='t') flag_markov=6;
-			else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='C') flag_markov=7;
-                        else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='c') flag_markov=7;
-			else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='G') flag_markov=8;
-                        else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='g') flag_markov=8;
+else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='A') flag_markov=5;
+else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='a') flag_markov=5;
+else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='G') flag_markov=6;
+else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='g') flag_markov=6;
+else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='C') flag_markov=7;
+else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='c') flag_markov=7;
+else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='T') flag_markov=8;
+else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='t') flag_markov=8;
 
-                        else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='A') flag_markov=9;
-                        else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='a') flag_markov=9;
-			else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='T') flag_markov=10;
-                        else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='t') flag_markov=10;
-			else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='C') flag_markov=11;
-                        else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='c') flag_markov=11;
-			else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='G') flag_markov=12;
-                        else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='g') flag_markov=12;
+else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='A') flag_markov=9;
+else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='a') flag_markov=9;
+else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='G') flag_markov=10;
+else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='g') flag_markov=10;
+else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='C') flag_markov=11;
+else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='c') flag_markov=11;
+else if (sequences_r[i][j-2]=='C' && sequences_r[i][j-1]=='T') flag_markov=12;
+else if (sequences_r[i][j-2]=='c' && sequences_r[i][j-1]=='t') flag_markov=12;
 
-                        else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='A') flag_markov=13;
-                        else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='a') flag_markov=13;
-			else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='T') flag_markov=14;
-                        else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='t') flag_markov=14;
-			else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='C') flag_markov=15;
-                        else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='c') flag_markov=15;
-			else if (sequences_r[i][j-2]=='G' && sequences_r[i][j-1]=='G') flag_markov=16;
-                        else if (sequences_r[i][j-2]=='g' && sequences_r[i][j-1]=='g') flag_markov=16;
+
+else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='A') flag_markov=13;
+else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='a') flag_markov=13;
+else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='G') flag_markov=14;
+else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='g') flag_markov=14;
+else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='C') flag_markov=15;
+else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='c') flag_markov=15;
+else if (sequences_r[i][j-2]=='T' && sequences_r[i][j-1]=='T') flag_markov=16;
+else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='t') flag_markov=16;
+
 
 		d_markov[flag_markov][0]++;
                 sum_markov++;
@@ -179,12 +181,12 @@ continuous **d_markov (char **sequences_r, int seq_num)
                 d_markov[i][0]=d_markov[i][0]/sum_markov;
 
 
-	/*for (i=0;i<17;i++){
+	for (i=0;i<17;i++){
                 for (j=0;j<5;j++){
                         printf("%f\t",d_markov[i][j]);
 		}
 		printf("\n");
-	}*/
+	}
 	return d_markov;
 }
 
