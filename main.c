@@ -88,3 +88,12 @@ int main(int argc, char* argv[])
 	return 0;
 }
 /***********************************************************************/
+/*
+for motif1, motif2 in all_motif_result
+	for m1 in motif-1
+		for m2 in motif-2
+			if ( 1/2*motif_length < overlap < motif_length )
+					m1_matrix = { min(start|end), max(start|end), m1_score + m2_score, length }
+					or m1_matrix = { max(start|end), min(start|end), m1_score + m2_score, length } if ( m1_start > m2_start )
+	new_motif_length = max_count_length in m1_matrix
+	new_motif1 = {id, seq, m1_start, m1 + new_motif_length, new_motif_length_sequence}-**/
