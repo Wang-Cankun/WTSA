@@ -63,7 +63,7 @@ continuous **markov (char **sequences_r, int seq_num)
 
 
 
-//WTSA 3-order markov matrix
+/*WTSA 3-order markov matrix*/
 continuous **d_markov (char **sequences_r, int seq_num)
 {
 	size_t i,j;

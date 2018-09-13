@@ -105,6 +105,10 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
                 fprintf (fw1," Candidate Motif %3d\n",closure_output);
                 fprintf (fw1,"*********************************************************\n\n");
                 fprintf (fw1," Motif length: %d\n Motif number: %d\n Seed number: %d\n Motif Pvalue: %3.4LG (%ld)\n\n",cc[ii]->length, cc[ii]->closure_rows, cc[ii]->size, cc[ii]->significance, cc[ii]->pvalue);
+		/*long double evalue;
+		evalue = cc[ii]->significance * cc[ii]->closure_rows;
+		fprintf (fw1," Motif Evalue: %3.4LG \n",evalue);*/
+		
                 if (po->zscore) fprintf (fw1," Seed Enrichment: %3.2f (%2.1f %2.5f)\n Seed Zscore: %3.2f\n",cc[ii]->enrich,cc[ii]->motif_known, cc[ii]->motif_background_norm, cc[ii]->zscore);
                 fprintf (fw1,"\n------------------- Motif Seed------------------\n");
 

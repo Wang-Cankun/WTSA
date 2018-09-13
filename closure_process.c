@@ -174,24 +174,24 @@ double binomial14[] ={
 	}
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
-	//num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
+	/*num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
 	
-	//if(max2==1){num=0.0;}
+	if(max2==1){num=0.0;}*/
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
 	return num;
 }
 
-// C function to find maximum in arr[] of size n
+/* C function to find maximum in arr[] of size n*/
 int largest(int arr[], int n)
 {
     int i;
     
-    // Initialize maximum element
+    /* Initialize maximum element*/
     int max = arr[0];
  
-    // Traverse array elements from second and
-    // compare every element with current max  
+    /* Traverse array elements from second and
+     compare every element with current max  */
     for (i = 1; i < n; i++)
         if (arr[i] > max)
             max = arr[i];

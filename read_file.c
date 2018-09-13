@@ -360,8 +360,8 @@ void read_sequences(FILE* fp1 )
                 }
                 else if(buffer[0]>= '0' && buffer[0] <= '9' )
                 {
-                        //printf("%d\n",strlen(buffer));
-                        /*token = strtok(buffer, s);*/
+                        /*printf("%d\n",strlen(buffer));
+                        token = strtok(buffer, s);*/
                         token = strtok(buffer, s);
                         j=0;
                         while (token&&j<k+strlen(buffer)-1) {
@@ -373,8 +373,8 @@ void read_sequences(FILE* fp1 )
                                 
                         }
                         
-                        //printf("%s\t\n",token);
-                        //printf("%d\t%d\t%d\t\n",i,j,height_matrix[i][j]);
+                        /*printf("%s\t\n",token);
+                        printf("%d\t%d\t%d\t\n",i,j,height_matrix[i][j]);*/
                         token = strtok(NULL, ",");
                         j++;
                         }

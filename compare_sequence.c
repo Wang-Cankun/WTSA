@@ -122,7 +122,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 	if (!po->middle_enhance && !po->no_enhance)
 		printf ("\nMotif length is: %d\nSignal strengthening started\n", po->MOTIFLENGTH);
 	fflush(stdout);
-	//printf("1%d\t\n",s_rows);
+	/*printf("1%d\t\n",s_rows);*/
 	for(i=0;i<s_rows;i++)
 	{
 		/* one dot represent ten sequences */
@@ -134,7 +134,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					max2 = height_matrix[p][0];
         	for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
 					{
-						//printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);
+						/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);*/
 						if (height_matrix[i][temp_largest] > max1)
 						{
 						max1 = height_matrix[i][temp_largest];
@@ -143,7 +143,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					}
 					for (temp_largest = 1; temp_largest < s_col[p]; temp_largest++)
 					{
-						//printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);
+						/*printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);*/
 						if (height_matrix[p][temp_largest] > max2)
 						{
 						max2 = height_matrix[p][temp_largest];
@@ -180,7 +180,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 							d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/logf((float)max1)+log1pf((float)height_matrix[p][q])/logf((float)max2));
 						}
         			}
-					//printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max2);
+					/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max2);*/
       			}
 
 			/* initialize match and match1 */
@@ -296,7 +296,6 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 
 					/*find local optimization of q in the first peak matrix*/
 					min = MIN (q+po->local2, s_col[p]);
-					//printf("min=%d\t\n",min);
 					q1=q; /*q1 is used to store the optimal position of q in matrix*/
 					min1 = matrix[p][q1];
 					for (k=q-2;k<q+3;k++)
