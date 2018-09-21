@@ -413,7 +413,7 @@ bool is_two_closures_regulon (Closures *a, Closures *b, Reference_genome *aa, Re
 	{
 	/*	printf ("%d\t%d\n",dsItem(a->sequence,i),dsItem(a->position,i));*/
 		k = dsItem(a->position,i);
-		for (j=0;j<a->length;j++)
+		for (j=0;j<a->length+extend_len;j++)
 		{
 			sequence_combine[i][j] = aa->sequences_r[dsItem(a->sequence,i)][k++];
 		}	
@@ -427,22 +427,22 @@ bool is_two_closures_regulon (Closures *a, Closures *b, Reference_genome *aa, Re
 			k = dsItem(b->position,i);
                         for (j=0;j<dsItem(b->position,i)-clo_matr1[num_b][num_a];j++)
 				sequence_combine[i+a->closure_rows][j] = 'N';
-                        for (j=dsItem(b->position,i)-clo_matr1[num_b][num_a];j<b->length;j++)
+                        for (j=dsItem(b->position,i)-clo_matr1[num_b][num_a];j<b->length+extend_len;j++)
                                 sequence_combine[i+a->closure_rows][j] = bb->sequences_r[dsItem(b->sequence,i)][k++];                                
 		}
-		else if (dsItem(b->position,i)+clo_matr1[num_b][num_a]+b->length >strlen(bb->sequences_r[0]))
+		else if (dsItem(b->position,i)+clo_matr1[num_b][num_a]+b->length+extend_len >strlen(bb->sequences_r[0]))
                 {
 			k = dsItem(b->position,i);
                         for (j=0; j<strlen(bb->sequences_r[0])-dsItem(b->position,i)-clo_matr1[num_b][num_a];j++)
                                 sequence_combine[i+a->closure_rows][j] = bb->sequences_r[dsItem(b->sequence,i)][k++];                            
-			for (j=strlen(bb->sequences_r[0])-dsItem(b->position,i)-clo_matr1[num_b][num_a];j<b->length;j++)
+			for (j=strlen(bb->sequences_r[0])-dsItem(b->position,i)-clo_matr1[num_b][num_a];j<b->length+extend_len;j++)
 				sequence_combine[i+a->closure_rows][j] = 'N';
 		}
                 else 
                 {
 /*	                printf ("11111111111\t%d\t%d\n",dsItem(b->sequence,i),dsItem(b->position,i));*/
 			k = dsItem(b->position,i);
-			for (j=0;j<b->length;j++)
+			for (j=0;j<b->length+extend_len;j++)
 			{
                                 /*printf ("%c\n",bb->sequences_r[dsItem(b->sequence,i)][dsItem(b->position,i)]);*/
 				sequence_combine[i+a->closure_rows][j] = bb->sequences_r[dsItem(b->sequence,i)][k++];   
@@ -451,10 +451,10 @@ bool is_two_closures_regulon (Closures *a, Closures *b, Reference_genome *aa, Re
 	}
 /*	printf ("3333%d\t%d\n",dsItem(all[0]->sequence,0),dsItem(all[0]->position,0));*/
 	/*get the profile of sequence_combine*/	
-	profile = get_profile (sequence_combine, 5, a->length, a->closure_rows+b->closure_rows);
+	profile = get_profile (sequence_combine, 5, a->length+extend_len, a->closure_rows+b->closure_rows);
 	/*improve the profile*/	
-	if (po->palindromic)    profile = impovre_profle_palindromic (profile, b->length, sequence_combine, 5 ,a->closure_rows+b->closure_rows);
-	else  profile = impovre_profle (profile, b->length);
+	if (po->palindromic)    profile = impovre_profle_palindromic (profile, b->length+extend_len, sequence_combine, 5 ,a->closure_rows+b->closure_rows);
+	else  profile = impovre_profle (profile, b->length+extend_len);
 	/*get the average score*/
         ave_socre = aver_score_closure(sequence_combine, profile, score, a->closure_rows+b->closure_rows, po->MOTIFLENGTH);
 	/*calculate the pvalue of combined clousres*/

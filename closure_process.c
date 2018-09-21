@@ -59,7 +59,7 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 {
         int i=0;
         continuous num=0;
-	continuous binomial18[] ={
+	/*continuous binomial18[] ={
 0.0
 ,0.0
 ,0.0
@@ -77,7 +77,7 @@ continuous get_similarity_between_two_patterns(int seq1, int seq2, int pos1, int
 ,6.4
 ,7.6
 ,9.1
-,10.8};
+,10.8};*/
 
 continuous binomial14[] ={
 0.0
@@ -100,14 +100,15 @@ continuous binomial14[] ={
 		}
 	}
 	
-        return (binomial14[(int)num]);
+        /*return (binomial14[(int)num]);*/
+	return (num);
 }
 
 /************************************************************************/
 continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1, int pos2, int lower, int upper, continuous init)
 {
        int pos=0;
-       double binomial18[] ={
+      /* double binomial18[] ={
 0.0
 ,0.0
 ,0.0
@@ -125,7 +126,7 @@ continuous improve_similarity_between_two_patterns(int seq1, int seq2, int pos1,
 ,6.4
 ,7.6
 ,9.1
-,10.8};
+,10.8};*/
 
 double binomial14[] ={
 0.0
@@ -141,6 +142,61 @@ double binomial14[] ={
 ,4.4
 ,5.5
 ,6.8
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
+,8.4
 ,8.4};
        continuous num= init;
        if (po->middle_enhance)
@@ -167,11 +223,11 @@ double binomial14[] ={
 	/*printf("%d\t%d\t\n",max1,max2);*/
 	/*num = num * (log10f((float)height_matrix[seq1][pos1])/log10f((float)max1)+log10f((float)height_matrix[seq2][pos2])/log10f((float)max2));*/
 	/*printf("%d\t\n",height_matrix[seq1][pos1]);*/
-	if(num<15.0){
+	/*if(num<15.0){
        		num = (binomial14[(int)num]);
 	}else {
 	num = (binomial14[13]);
-	}
+	}*/
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
 	/*num = num * (log1pf((float)height_matrix[seq1][pos1])/logf((float)max1)+log1pf((float)height_matrix[seq2][pos2])/logf((float)max2));
@@ -179,7 +235,8 @@ double binomial14[] ={
 	if(max2==1){num=0.0;}*/
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
-	return num;
+	return (num);
+	/*return binomial14[num];*/
 }
 
 /* C function to find maximum in arr[] of size n*/
@@ -647,11 +704,11 @@ char **get_sequences_from_closures (Closures *aa)
 			break;
 		}	
 	}
-        sequence_aa = alloc2c (aa->closure_rows,aa->length);
+        sequence_aa = alloc2c (aa->closure_rows,aa->length+extend_len);
 	for (i=0; i<aa->closure_rows; i++)
 	{
 		k=0;
-		for (j=dsItem(aa->position,i);j< (dsItem(aa->position,i)+aa->length); j++)
+		for (j=dsItem(aa->position,i);j< (dsItem(aa->position,i)+aa->length+extend_len); j++)
 		{
 			if (flag) sequence_aa[i][k] = genome[genome_num]->sequences_r[dsItem(aa->sequence,i)][j];
 			else sequence_aa[i][k] = sequences[dsItem(aa->sequence,i)][j];
@@ -678,15 +735,15 @@ char **get_2L_sequeces_from_closures (Closures *aa)
                         break;
                 }
         }
-	sequence_aa = alloc2c (aa->closure_rows,2*aa->length);
+	sequence_aa = alloc2c (aa->closure_rows,2*(aa->length+extend_len));
 	for (i=0; i<aa->closure_rows; i++)
         {
                 k=0;
-                left_1 = dsItem(aa->position,i) - floor(aa->length/2);
+                left_1 = dsItem(aa->position,i) - floor((aa->length+extend_len)/2);
                 left = MAX(0,left_1);
 		if (flag) length1= strlen(genome[genome_num]->sequences_r[dsItem(aa->sequence,i)])-1;
 		else length1=strlen(sequences[dsItem(aa->sequence,i)])-1;
-                right_1 = dsItem(aa->position,i) + aa->length + ceil(aa->length/2);
+                right_1 = dsItem(aa->position,i) + aa->length+extend_len + ceil((aa->length+extend_len)/2);
                 right = MIN(length1,right_1);
                 if (left_1<0)
                 {
@@ -723,14 +780,14 @@ continuous similarity_closures(Closures *aa, Closures *bb)
 	sequence_aa_2 = get_2L_sequeces_from_closures (aa);
 	sequence_bb_1 = get_sequences_from_closures (bb);
         sequence_bb_2 = get_2L_sequeces_from_closures (bb);
-	IC_a = get_IC (sequence_aa_1, 5, aa->length, aa->closure_rows);
-	IC_b = get_IC (sequence_bb_1, 5, bb->length, bb->closure_rows);
-	for (i=0;i<aa->length;i++)
+	IC_a = get_IC (sequence_aa_1, 5, aa->length+extend_len, aa->closure_rows);
+	IC_b = get_IC (sequence_bb_1, 5, bb->length+extend_len, bb->closure_rows);
+	for (i=0;i<aa->length+extend_len;i++)
 	{
-		for (j=0; j< bb->length; j++)
+		for (j=0; j< bb->length+extend_len; j++)
 		{
-			IC_ab = IC_closures_1 (sequence_aa_2, sequence_bb_2, 5, 2*aa->length, aa->closure_rows, bb->closure_rows, i ,j);
-			IC_ba = IC_closures_2 (sequence_aa_2, sequence_bb_2, 5, 2*bb->length, aa->closure_rows, bb->closure_rows, i ,j);
+			IC_ab = IC_closures_1 (sequence_aa_2, sequence_bb_2, 5, 2*(aa->length+extend_len), aa->closure_rows, bb->closure_rows, i ,j);
+			IC_ba = IC_closures_2 (sequence_aa_2, sequence_bb_2, 5, 2*(bb->length+extend_len), aa->closure_rows, bb->closure_rows, i ,j);
 			IC_temp = (IC_ab+IC_ba)/(IC_a+IC_b);
 			if (IC_temp > IC_simi)	IC_simi = IC_temp;
 		}
@@ -754,7 +811,7 @@ continuous *get_column_IC (Closures **aa, int clos)
 {
         continuous *I_11;
         int p , q;
-        int length = 2*aa[clos]->length;
+        int length = 2*(aa[clos]->length+extend_len);
         AllocArray (I_11, length);
         for (p = 0; p < length; p++)
         {
@@ -771,7 +828,7 @@ continuous *get_column_IC_12 (Closures **aa, int clos_1, int clos_2, int startpo
 {
         continuous *I_12;
         int p , q;
-        int length = aa[clos_1]->length+aa[clos_2]->length;
+        int length = aa[clos_1]->length+aa[clos_2]->length+extend_len+extend_len;
         AllocArray (I_12, length);
         int pos_max = MAX (startpos_1,startpos_2);
         int length_new = length-pos_max;
@@ -792,7 +849,7 @@ continuous *get_column_IC_21 (Closures **aa, int clos_1, int clos_2, int startpo
 {
         continuous *I_21;
         int p , q;
-        int length = aa[clos_1]->length+aa[clos_2]->length;
+        int length = aa[clos_1]->length+aa[clos_2]->length+extend_len+extend_len;
         AllocArray (I_21, length);
         int pos_max = MAX (startpos_1,startpos_2);
         int length_new = length-pos_max;
@@ -827,22 +884,22 @@ bool *clean_up_closures (Closures **aa, int closure_id, continuous threshold)
         sco2_all = (continuous***)malloc(sizeof(continuous**)*closure_id);
         for (i=0;i<closure_id;i++)
         {
-                fre_all[i] = alloc2d (5, aa[i]->length);
-                fre2_all[i] = alloc2d (5, 2*aa[i]->length);
-                sco_all[i] = alloc2dd (5, aa[i]->length);
-                sco2_all[i] = alloc2dd (5, 2*aa[i]->length);
+                fre_all[i] = alloc2d (5, aa[i]->length+extend_len);
+                fre2_all[i] = alloc2d (5, 2*aa[i]->length+extend_len);
+                sco_all[i] = alloc2dd (5, aa[i]->length+extend_len);
+                sco2_all[i] = alloc2dd (5, 2*aa[i]->length+extend_len);
         }
 	for (i=0;i<closure_id;i++)
         {
 		sequence_aa_1 = get_sequences_from_closures (aa[i]);
                 sequence_aa_2 = get_2L_sequeces_from_closures (aa[i]);
-                fre_all[i] = frequency_matrix (sequence_aa_1, 5, aa[i]->length, aa[i]->closure_rows);
-                fre2_all[i] = frequency_matrix (sequence_aa_2, 5, 2*aa[i]->length, aa[i]->closure_rows);
-                sco_all[i] = get_profile (sequence_aa_1, 5, aa[i]->length, aa[i]->closure_rows);
+                fre_all[i] = frequency_matrix (sequence_aa_1, 5, aa[i]->length+extend_len, aa[i]->closure_rows);
+                fre2_all[i] = frequency_matrix (sequence_aa_2, 5, 2*(aa[i]->length+extend_len), aa[i]->closure_rows);
+                sco_all[i] = get_profile (sequence_aa_1, 5, aa[i]->length+extend_len, aa[i]->closure_rows);
                 /*improve the profile by decreasing the middle part of motif*/
                 /*sco_all[i] = impovre_profle (sco_all[i],aa[i]->length);*/
 
-                sco2_all[i] = get_profile (sequence_aa_2, 5, 2*aa[i]->length, aa[i]->closure_rows);
+                sco2_all[i] = get_profile (sequence_aa_2, 5, 2*(aa[i]->length+extend_len), aa[i]->closure_rows);
         }
         double length_local_1;
 	int min_length = 0;
@@ -850,26 +907,26 @@ bool *clean_up_closures (Closures **aa, int closure_id, continuous threshold)
         for (ii=0,IC_1=0;ii<(closure_id-1);ii++,IC_1=0)
         {
                 if (IS_duplicate[ii]) continue;
-                length_local_1 = aa[ii]->length;
+                length_local_1 = aa[ii]->length+extend_len;
 
                 I_11 = get_column_IC (aa, ii);
-                for (j=floor(aa[ii]->length/2); j<floor(aa[ii]->length/2)+length_local_1;j++)
+                for (j=floor((aa[ii]->length+extend_len)/2); j<floor((aa[ii]->length+extend_len)/2)+length_local_1;j++)
                 {
                         IC_1 = IC_1 + I_11[j]*I_11[j];
                 }
                 for (jj=ii+1,IC_2=0;jj<closure_id; jj++,IC_2=0,similarity = -10)
                 {
                         if (IS_duplicate[ii]) continue;
-			min_length = MIN(aa[jj]->length, aa[ii]->length);
-                	length_local_1 = aa[jj]->length;
+			min_length = MIN(aa[jj]->length+extend_len, aa[ii]->length+extend_len);
+                	length_local_1 = aa[jj]->length+extend_len;
 			I_22 = get_column_IC (aa, jj);
-                        for (j=floor(aa[jj]->length/2); j<floor(aa[jj]->length/2)+length_local_1;j++)
+                        for (j=floor((aa[jj]->length/2+extend_len)); j<floor((aa[jj]->length+extend_len)/2)+length_local_1;j++)
                         {
                                 IC_2 = IC_2 + I_22[j]*I_22[j];
                         }
                         int startpos[2], start, mos=0;
                         continuous *I_12, *I_21;
-                        for(startpos[0]=0,startpos[1]=aa[jj]->length; startpos[1]>0||startpos[0]<aa[ii]->length; mos=0)
+                        for(startpos[0]=0,startpos[1]=aa[jj]->length+extend_len; startpos[1]>0||startpos[0]<aa[ii]->length+extend_len; mos=0)
                         {
                                 I_12 = get_column_IC_12 (aa, ii, jj, startpos[0], startpos[1]);
                                 I_21 = get_column_IC_21 (aa, ii, jj, startpos[0], startpos[1]);
@@ -884,7 +941,7 @@ bool *clean_up_closures (Closures **aa, int closure_id, continuous threshold)
                                 {
                                         similarity = IC_temp;
                                 }
-                                for(p=startpos[0]+1,q=startpos[1]+1, IC_21=IC_12=0;p< aa[ii]->length+1 && q< aa[jj]->length+1;p++,q++,IC_21=IC_12=0)
+                                for(p=startpos[0]+1,q=startpos[1]+1, IC_21=IC_12=0;p< aa[ii]->length+1+extend_len && q< aa[jj]->length+1+extend_len;p++,q++,IC_21=IC_12=0)
                                 {
                                         mos++;
                                         for (start = mos; start < mos+min_length; start++)
@@ -978,22 +1035,22 @@ discrete **get_closure_matrix_1 (Closures **aa, int closure_id, continuous thres
 	char **sequence_aa_1, **sequence_aa_2;
 	for (i=0;i<closure_id;i++)
 	{
-		fre_all[i] = alloc2d (5, aa[i]->length);
-		fre2_all[i] = alloc2d (5, 2*aa[i]->length);
-		sco_all[i] = alloc2dd (5, aa[i]->length);
-		sco2_all[i] = alloc2dd (5, 2*aa[i]->length);
+		fre_all[i] = alloc2d (5, aa[i]->length+extend_len);
+		fre2_all[i] = alloc2d (5, 2*aa[i]->length+extend_len);
+		sco_all[i] = alloc2dd (5, aa[i]->length+extend_len);
+		sco2_all[i] = alloc2dd (5, 2*aa[i]->length+extend_len);
 	}
 	for (i=0;i<closure_id;i++)
 	{
 		sequence_aa_1 = get_sequences_from_closures (aa[i]);
 		sequence_aa_2 = get_2L_sequeces_from_closures (aa[i]);
-		fre_all[i] = frequency_matrix (sequence_aa_1, 5, aa[i]->length, aa[i]->closure_rows);
-		fre2_all[i] = frequency_matrix (sequence_aa_2, 5, 2*aa[i]->length, aa[i]->closure_rows);
-		sco_all[i] = get_profile (sequence_aa_1, 5, aa[i]->length, aa[i]->closure_rows);
+		fre_all[i] = frequency_matrix (sequence_aa_1, 5, aa[i]->length+extend_len, aa[i]->closure_rows);
+		fre2_all[i] = frequency_matrix (sequence_aa_2, 5, 2*(aa[i]->length+extend_len), aa[i]->closure_rows);
+		sco_all[i] = get_profile (sequence_aa_1, 5, aa[i]->length+extend_len, aa[i]->closure_rows);
 		/*improve the profile by decreasing the middle part of motif*/
-		sco_all[i] = impovre_profle (sco_all[i],aa[i]->length);
+		sco_all[i] = impovre_profle (sco_all[i],aa[i]->length+extend_len);
 
-		sco2_all[i] = get_profile (sequence_aa_2, 5, 2*aa[i]->length, aa[i]->closure_rows);
+		sco2_all[i] = get_profile (sequence_aa_2, 5, 2*(aa[i]->length+extend_len), aa[i]->closure_rows);
 /*		sco2_all[i] = impovre_profle (sco2_all[i],2*aa[i]->length);*/
 	}
 	int forepart, endpart;
@@ -1003,10 +1060,10 @@ discrete **get_closure_matrix_1 (Closures **aa, int closure_id, continuous thres
         {
                 /*printf ("%d\t%s\n",ii+1,aa[ii]->name);*/
 		if (IS_duplicate[ii]) continue;
-		length_local_1 = aa[ii]->length;
+		length_local_1 = aa[ii]->length+extend_len;
 		forepart=floor(length_local_1/3),endpart=ceil(length_local_1/3);
 		for (i=1;i<5;i++)
-                        for (j=0;j<aa[ii]->length;j++)
+                        for (j=0;j<aa[ii]->length+extend_len;j++)
 			{
                                 IC_1 = IC_1 + ((fre_all[ii][i][j]+p_markov[i][0])*sco_all[ii][i][j])/(aa[ii]->closure_rows+1);
 /*				if (ii==3)	printf ("1111111111111\t%d\t%d\t%3.2f\t%3.2f\t%3.2f\n",j,fre_all[ii][i][j],sco_all[ii][i][j],IC_1,IC_2);*/
@@ -1015,15 +1072,15 @@ discrete **get_closure_matrix_1 (Closures **aa, int closure_id, continuous thres
                 {
 			/* printf ("%d\t%d\t%3.2f\t%3.2f\n",ii,jj,IC_1,IC_2);*/
 			for (i=1;i<5;i++)
-                		for (j=0;j<aa[jj]->length;j++)
+                		for (j=0;j<aa[jj]->length+extend_len;j++)
 				{	
 					IC_2 = IC_2 + ((fre_all[jj][i][j]+p_markov[i][0])*sco_all[jj][i][j])/(aa[jj]->closure_rows+1);
 /*					if (ii==3 && jj==8)      printf ("2222222222222222\t%d\t%d\t%3.2f\t%3.2f\t%3.2f\n",j,fre_all[jj][i][j],sco_all[ii][i][j],IC_2,IC_1);*/
 				}
 /*			printf ("%d\t%d\t%3.2f\t%3.2f\n",ii,jj,IC_1,IC_2);*/
-			for (p=0;p<aa[ii]->length+1;p++)
+			for (p=0;p<aa[ii]->length+extend_len+1;p++)
 			{
-		                for (q=0; q< aa[jj]->length+1; q++)
+		                for (q=0; q< aa[jj]->length+extend_len+1; q++)
 		                {
                 		        for (i=1;i<5;i++)
 					{

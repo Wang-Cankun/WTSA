@@ -104,7 +104,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		fprintf (fw1,"\n\n*********************************************************\n");
                 fprintf (fw1," Candidate Motif %3d\n",closure_output);
                 fprintf (fw1,"*********************************************************\n\n");
-                fprintf (fw1," Motif length: %d\n Motif number: %d\n Seed number: %d\n Motif Pvalue: %3.4LG (%ld)\n\n",cc[ii]->length, cc[ii]->closure_rows, cc[ii]->size, cc[ii]->significance, cc[ii]->pvalue);
+                fprintf (fw1," Motif length: %d\n Motif number: %d\n Seed number: %d\n Motif Pvalue: %3.4LG (%ld)\n\n",cc[ii]->length+extend_len, cc[ii]->closure_rows, cc[ii]->size, cc[ii]->significance, cc[ii]->pvalue);
 		/*long double evalue;
 		evalue = cc[ii]->significance * cc[ii]->closure_rows;
 		fprintf (fw1," Motif Evalue: %3.4LG \n",evalue);*/
@@ -116,7 +116,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		else fprintf (fw1,"#Seq\tposi\tMotif\t\tScore\tInfo\n");*/
 		for (jj=0; jj<cc[ii]->size; jj++) 
 		{
-			for (kk=0;kk<cc[ii]->length;kk++)
+			for (kk=0;kk<cc[ii]->length+extend_len;kk++)
 				fprintf (fw1, "%c", cc[ii]->seed[jj][kk]);
 			fprintf (fw1,"\n");
 		}	
@@ -204,8 +204,8 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		fprintf (fw1,"\n------------------- Consensus sequences------------------\n");
 		char **consensus;
 		int consensus_id=0, consensus_fre=0;
-		consensus = alloc2c (5, cc[ii]->length);
-		for (kk=0;kk<cc[ii]->length;kk++)
+		consensus = alloc2c (5, cc[ii]->length+extend_len);
+		for (kk=0;kk<cc[ii]->length+extend_len;kk++)
 		{
 			consensus_id=0;
 			consensus_fre=0;
@@ -228,7 +228,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		}
 		for (jj=0;jj<5;jj++)
 		{
-			for (kk=0;kk<cc[ii]->length;kk++)
+			for (kk=0;kk<cc[ii]->length+extend_len;kk++)
 				fprintf (fw1, "%c", consensus[jj][kk]);
 			fprintf (fw1,"\n");
 		}	
@@ -240,34 +240,34 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
                 int i3 = get_num_TF (cc[ii]);
                 clo_TF =alloc2c (i3,10);
                 i3 = 0;
-		sequences_closures = alloc2c(cc[ii]->closure_rows,cc[ii]->length);
+		sequences_closures = alloc2c(cc[ii]->closure_rows,cc[ii]->length+extend_len);
                 for (jj=0; jj<cc[ii]->closure_rows; jj++)
                 {
                         int kkk=0;
 			
 			/*check whether positive or negative*/
 			double positive=0, negative=0;
-	                for (kk=dsItem(cc[ii]->position,jj); kk< (dsItem(cc[ii]->position,jj)+cc[ii]->length); kk++)
+	                for (kk=dsItem(cc[ii]->position,jj); kk< (dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len); kk++)
         	        {
                                 if (sequences[dsItem(cc[ii]->sequence,jj)][kk] == 'A' || sequences[dsItem(cc[ii]->sequence,jj)][kk] == 'a')
 				{
 					positive += cc[ii]->frequency[1][kkk]; 
-					negative += cc[ii]->frequency[4][cc[ii]->length-kkk-1];
+					negative += cc[ii]->frequency[4][cc[ii]->length+extend_len-kkk-1];
 				}
 				else if (sequences[dsItem(cc[ii]->sequence,jj)][kk] == 'T' || sequences[dsItem(cc[ii]->sequence,jj)][kk] == 't')
 				{
 					positive += cc[ii]->frequency[4][kkk]; 
-					negative += cc[ii]->frequency[1][cc[ii]->length-kkk-1];
+					negative += cc[ii]->frequency[1][cc[ii]->length+extend_len-kkk-1];
 				}
 				else if (sequences[dsItem(cc[ii]->sequence,jj)][kk] == 'G' || sequences[dsItem(cc[ii]->sequence,jj)][kk] == 'g')
 				{
 					positive += cc[ii]->frequency[2][kkk]; 
-					negative += cc[ii]->frequency[3][cc[ii]->length-kkk-1];
+					negative += cc[ii]->frequency[3][cc[ii]->length+extend_len-kkk-1];
 				}
 				else
 				{
 					positive += cc[ii]->frequency[3][kkk]; 
-					negative += cc[ii]->frequency[2][cc[ii]->length-kkk-1];
+					negative += cc[ii]->frequency[2][cc[ii]->length+extend_len-kkk-1];
 				}
 				kkk++;
         	        }
@@ -275,15 +275,15 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 			kkk=0;
 			if (positive >= negative)
 			{
-				if (po->ID) fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t%s\t",closure_output,dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+1,dsItem(cc[ii]->position,jj)+cc[ii]->length, locus_id[dsItem(cc[ii]->sequence,jj)]);
-				else fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t",closure_output, dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+1, dsItem(cc[ii]->position,jj)+cc[ii]->length);
+				if (po->ID) fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t%s\t",closure_output,dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+1,dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len, locus_id[dsItem(cc[ii]->sequence,jj)]);
+				else fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t",closure_output, dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+1, dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len);
 			}
 			else
 			{
-				if (po->ID) fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t%s\t",closure_output,dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+cc[ii]->length,dsItem(cc[ii]->position,jj)+1, locus_id[dsItem(cc[ii]->sequence,jj)]);
+				if (po->ID) fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t%s\t",closure_output,dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len,dsItem(cc[ii]->position,jj)+1, locus_id[dsItem(cc[ii]->sequence,jj)]);
 				else fprintf (fw1,">Motif-%d\t%d\t%d\t%d\t",closure_output, dsItem(cc[ii]->sequence,jj)+1,dsItem(cc[ii]->position,jj)+cc[ii]->length, dsItem(cc[ii]->position,jj)+1);
 			}
-                	for (kk=dsItem(cc[ii]->position,jj); kk< (dsItem(cc[ii]->position,jj)+cc[ii]->length); kk++)
+                	for (kk=dsItem(cc[ii]->position,jj); kk< (dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len); kk++)
 			{
 				if (positive >= negative)
 				{
@@ -292,7 +292,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 				}
 				else
 				{
-					int temp_posi = (dsItem(cc[ii]->position,jj)+cc[ii]->length); 
+					int temp_posi = (dsItem(cc[ii]->position,jj)+cc[ii]->length+extend_len); 
                                 	if (sequences[dsItem(cc[ii]->sequence,jj)][temp_posi-kkk-1] == 'A' || sequences[dsItem(cc[ii]->sequence,jj)][temp_posi-kkk-1] == 'a')
 						fprintf (fw1,"T");
 					else if (sequences[dsItem(cc[ii]->sequence,jj)][temp_posi-kkk-1] == 'T' || sequences[dsItem(cc[ii]->sequence,jj)][temp_posi-kkk-1] == 't')
@@ -549,7 +549,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         AllocVar(cctemp);
         int ii,t;        
         int  seq_number = s_rows; 
-        int length_local_1 = length_local, Motif_Scan_V[7];
+        int length_local_1 = length_local+extend_len, Motif_Scan_V[7];
         /*continuous Motif_R_V[7],pvalue_V[7];*/
 	long double Motif_R_V[7],pvalue_V[7];
         continuous pp[5],AveScore_V[7],score_scan=0, score_scan_RC=0;

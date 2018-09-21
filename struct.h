@@ -63,6 +63,7 @@ typedef float continuous;
 typedef short discrete;
 
 /* global data */
+/*int extend_len;*/
 continuous **arr;
 discrete **arr_c;
 discrete **arr_c1;

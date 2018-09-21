@@ -4,7 +4,7 @@
     "command": "gcc",
     "isShellCommand": true,
     // compiles and links with debugger information
-    "args": ["-g", "-o", "WTSA","-D VER=2","-static","-lm", "struct.c","compare_sequence.c"," make_graph.c"," get_options.c"," fib.c"," write_file.c"," find_clique.c"," main.c"," closure_process.c"," pvalue.c"," read_file.c"," matrix_process.c"],
+    "args": ["-g", "-o", "WTSA","-D extend_len=6","-D VER=2","-static","-lm", "struct.c","compare_sequence.c"," make_graph.c"," get_options.c"," fib.c"," write_file.c"," find_clique.c"," main.c"," closure_process.c"," pvalue.c"," read_file.c"," matrix_process.c"],
     // without debugger information
     // "args": ["-o", "hello.exe", "hello.cpp"],
     "showOutput": "always"

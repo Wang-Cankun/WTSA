@@ -128,30 +128,28 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 		/* one dot represent ten sequences */
 		if ((i+1)%10==0) verboseDot(); 
 		/*uglyTime("first for i=%d", i);*/
-		for(p=i;p<s_rows;p++)
+		max1 = height_matrix[i][0];
+		for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
 		{
-					max1 = height_matrix[i][0];
-					max2 = height_matrix[p][0];
-        	for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
-					{
-						/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);*/
-						if (height_matrix[i][temp_largest] > max1)
-						{
-						max1 = height_matrix[i][temp_largest];
-						}
-							
-					}
-					for (temp_largest = 1; temp_largest < s_col[p]; temp_largest++)
-					{
-						/*printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);*/
-						if (height_matrix[p][temp_largest] > max2)
-						{
-						max2 = height_matrix[p][temp_largest];
-						}
-							
-					}
-
-
+			/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);*/
+			if (height_matrix[i][temp_largest] > max1)
+			{
+			max1 = height_matrix[i][temp_largest];
+			}
+				
+		}
+		for(p=i;p<s_rows;p++)
+		{		
+			max2 = height_matrix[p][0];
+			for (temp_largest = 1; temp_largest < s_col[p]; temp_largest++)
+			{
+				/*printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);*/
+				if (height_matrix[p][temp_largest] > max2)
+				{
+				max2 = height_matrix[p][temp_largest];
+				}
+					
+			}
 			/*initialize the values of d1*/
 			for (j=0;j<s_col[i];j++)
 				for (q=0;q<s_col[p];q++)
@@ -177,10 +175,13 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					if (d1[j][q] ==0.0) {continue;}
 					if (max2==1) {d2[j][q]=0.0;}
 					else {
-							d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/logf((float)max1)+log1pf((float)height_matrix[p][q])/logf((float)max2));
+						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/logf((float)max1)+log1pf((float)height_matrix[p][q])/logf((float)max2));
+						/*d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf(height_matrix[i][j])/logf(max1)+log1pf(height_matrix[p][q])/logf(max2));*/
+						/*d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);*/
+						
 						}
         			}
-					/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max2);*/
+					
       			}
 
 			/* initialize match and match1 */
@@ -479,11 +480,13 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 						continue;
 					}
 					min = j1+q-j-q1;
+					double log_height;
+					log_height = d2[j][q]*log(matrix1[i][j1]+matrix1[p][q1]+1);
 					if ((match[j1]) && (match1[q1]))
 					{
-						if ( (d2[j][q]*log(matrix1[i][j1]+matrix1[p][q1]+1) > d4[j][q].score))
+						if ( (log_height > d4[j][q].score))
 						{
-							d4[j][q].score=d2[j][q]*log(matrix1[i][j1]+matrix1[p][q1]+1);
+							d4[j][q].score=log_height;
 							d3[j1][q1]=min;
 							d4[j][q].x=j1;
 							d4[j][q].y=q1;
@@ -494,7 +497,7 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 					{
 						d4[j][q].x=j1;
 						d4[j][q].y=q1;
-						d4[j][q].score=d2[j][q]*log(matrix1[i][j1]+matrix1[p][q1]+1);
+						d4[j][q].score=log_height;
 						d3[j1][q1]=min;
 						match[j1]=TRUE;
 						match1[q1]=TRUE;
