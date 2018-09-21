@@ -100,8 +100,7 @@ continuous binomial14[] ={
 		}
 	}
 	
-        /*return (binomial14[(int)num]);*/
-	return (num);
+        return (binomial14[(int)num]);
 }
 
 /************************************************************************/
@@ -235,8 +234,7 @@ double binomial14[] ={
 	if(max2==1){num=0.0;}*/
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
-	return (num);
-	/*return binomial14[num];*/
+	return binomial14[(int)num];
 }
 
 /* C function to find maximum in arr[] of size n*/

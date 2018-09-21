@@ -113,6 +113,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 	int temp_largest;
 	int max1;
 	int max2;
+	float max_all[s_rows];
 	uglyTime("compare first start", i);
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
@@ -120,36 +121,52 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 
 	maxindex = 0; 
 	if (!po->middle_enhance && !po->no_enhance)
-		printf ("\nMotif length is: %d\nSignal strengthening started\n", po->MOTIFLENGTH);
+	printf ("\nMotif length is: %d\nSignal strengthening started\n", po->MOTIFLENGTH);
 	fflush(stdout);
 	/*printf("1%d\t\n",s_rows);*/
+	
+	for(i=0;i<s_rows;i++)
+	{
+		max_all[i] = height_matrix[i][0];
+		for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
+		{
+			
+			if (height_matrix[i][temp_largest] > max_all[i] )
+			{
+			max_all[i] = height_matrix[i][temp_largest];
+			max_all[i] = logf((float)max_all[i]);
+			}
+		}
+		/*printf("%d\t%f\t\n",i,max_all[i] );*/
+	}
+
 	for(i=0;i<s_rows;i++)
 	{
 		/* one dot represent ten sequences */
 		if ((i+1)%10==0) verboseDot(); 
 		/*uglyTime("first for i=%d", i);*/
-		max1 = height_matrix[i][0];
+
+		for(p=i;p<s_rows;p++)
+		{		
+	/*		max2 = height_matrix[p][0];
+			max1 = height_matrix[i][0];
 		for (temp_largest = 1; temp_largest < s_col[i]; temp_largest++)
 		{
-			/*printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);*/
+			printf("%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,max1);
 			if (height_matrix[i][temp_largest] > max1)
 			{
 			max1 = height_matrix[i][temp_largest];
 			}
 				
 		}
-		for(p=i;p<s_rows;p++)
-		{		
-			max2 = height_matrix[p][0];
 			for (temp_largest = 1; temp_largest < s_col[p]; temp_largest++)
 			{
-				/*printf("%d\t%d\t%d\t%d\t%d\t%d\t\n",i,j,p,q,temp_largest);*/
 				if (height_matrix[p][temp_largest] > max2)
 				{
 				max2 = height_matrix[p][temp_largest];
 				}
 					
-			}
+			}*/
 			/*initialize the values of d1*/
 			for (j=0;j<s_col[i];j++)
 				for (q=0;q<s_col[p];q++)
@@ -160,10 +177,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 				if (matrix3[i][j])   continue; /*check matrix_no_continuous_equal*/
 				for(q=0;q<s_col[p];q++)
 				{
-					max1 = height_matrix[i][0];
-					max2 = height_matrix[p][0];
-					
-					
+
 					if (matrix3[p][q]) continue; /*check matrix_no_continuous_equal*/
 					/*do not compare with itself*/
 					if (q==j && i==p) { d1[j][q]=0; continue;}
@@ -175,7 +189,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					if (d1[j][q] ==0.0) {continue;}
 					if (max2==1) {d2[j][q]=0.0;}
 					else {
-						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/logf((float)max1)+log1pf((float)height_matrix[p][q])/logf((float)max2));
+						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/max_all[i]+log1pf((float)height_matrix[p][q])/max_all[p]);
 						/*d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf(height_matrix[i][j])/logf(max1)+log1pf(height_matrix[p][q])/logf(max2));*/
 						/*d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);*/
 						
