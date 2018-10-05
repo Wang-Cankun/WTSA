@@ -1,6 +1,6 @@
 /************************************************************************/
 /* Author: Qin Ma <maqin@csbl.bmb.uga.edu>, Feb. 16, 2010
- * Organize the parameters of BoBro
+ * Organize the parameters of wtsa
  */
 
 /***************************************************************************/ 
@@ -8,11 +8,11 @@
 #include "get_options.h"
 
 /***************************************************************************/ 
-/* ./BoBro or ./BoBro -h will pop up the usage of BoBro */
+/* ./wtsa or ./wtsa -h will pop up the usage of wtsa */
 static const char USAGE[] = 
 "===================================================================\n\
 [Usage]\n\
-$ ./BoBro -i filename [argument list]\n\
+$ ./wtsa -i filename [argument list]\n\
 ===================================================================\n\
 [Input]\n\
 -i : input file must be standard fasta file format\n\
@@ -61,7 +61,7 @@ Advanced parameters\n\
      default: FALSE\n\
 -A : the flag of approximation of pvalue calculation\n\
      default: FALSE\n\
--F : the flag of fast version of bobro which just enhance two ends of motif\n\
+-F : the flag of fast version of wtsa which just enhance two ends of motif\n\
      default: FALSE\n\
 -W : the flag of considering sequences weight\n\
      default: FALSE\n\
@@ -206,7 +206,7 @@ void get_options (int argc, char* argv[])
 			default : is_valid = FALSE;
 		}
 	}
-	/* ./BoBro will pop up the usage */
+	/* ./wtsa will pop up the usage */
 	if (argc==1) { puts(USAGE); exit(0);}
 	/* read the input files  */
 	if (po->IS_sequence) po->FP = mustOpen(po->FN, "r");

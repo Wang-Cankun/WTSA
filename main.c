@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 	/* get the program options defined in get_options.c */
 	get_options(argc, argv);
 	/* pop up the information of Bregulon */
-	printf("\nBoBro%.2f: motif finding on genome scale (compiled "__DATE__" "__TIME__")\n\n", VER);
+	printf("\nWTSA %.2f: motif finding on genome scale (compiled "__DATE__" "__TIME__")\n\n", VER);
 	/* read the fasta file and compare the sequences*/
 	if (po->IS_sequence) {
 		read_sequences(po -> FP);
