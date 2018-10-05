@@ -44,7 +44,7 @@ Advanced parameters\n\
 -s : the nunber of simulation times [5, ]\n\
      default: 5\n\
 -u : the threshold of two closures' similarity socre (0,1]\n\
-     default: 0.7\n\
+     default: 0.95\n\
 -a : the upper limit of conservation level (N,10]\n\
      default: 9\n\
 -N : the lower limit of conservation level (0,a)\n\
@@ -126,7 +126,8 @@ static void init_options ()
 	po->SequenceWeight = FALSE;
 	po->thre = 0.75;
 	po->thre_pvalue = 0.05;
-	po->closure_threshold = 0.7;
+	/*po->closure_threshold = 0.7;*/
+	po->closure_threshold = 0.4;
 	po->range =1;
 	po->closure_enlarge_times = 3;
 	po->conserve_threshold = 9;

@@ -360,7 +360,11 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 		sort_closures_list(all, all_id);
 		clo_matr = get_closure_matrix_1 (all, clo_num,po->thre);
 		if (po->IS_reference_H)  printf ("\nClosures/Regulons refinement and expansion\n");
-		if (po->no_enhance) j = report_closures(fw1,all,all_id,anno);
+
+		if (po->no_enhance && extend_len > 0 ) {
+			j = report_closures(fw1,all,all_id,anno);
+		}
+
 	}
 	else if (po->Low < po->Up)
 	{
@@ -374,7 +378,7 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 		if (po->MOTIFLENGTH == po->Up && po->no_enhance)
 			j = report_closures(fw1,all,all_id,anno);
 	}
-	uglyTime("post_processing_blocks end %d", j);
+
 	return j;
 }
 

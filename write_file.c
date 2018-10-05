@@ -87,6 +87,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
         char **clo_TF;
 	char **sequences_closures;
 	/*num = MIN(num, po->RPT_BLOCK);*/
+	
         while (ii< num && closure_output < po->RPT_BLOCK)
         {
                 if (IS_duplicate[ii]) 

@@ -181,12 +181,12 @@ else if (sequences_r[i][j-2]=='t' && sequences_r[i][j-1]=='t') flag_markov=16;
                 d_markov[i][0]=d_markov[i][0]/sum_markov;
 
 
-	for (i=0;i<17;i++){
+	/*for (i=0;i<17;i++){
                 for (j=0;j<5;j++){
                         printf("%f\t",d_markov[i][j]);
 		}
 		printf("\n");
-	}
+	}*/
 	return d_markov;
 }
 

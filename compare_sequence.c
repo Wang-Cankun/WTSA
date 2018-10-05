@@ -114,7 +114,7 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 	int max1;
 	int max2;
 	float max_all[s_rows];
-	uglyTime("compare first start", i);
+	/*uglyTime("compare first start", i);*/
 	continuous **d1, **d2;
         d1 = alloc2dd (s_cols,s_cols);
         d2 = alloc2dd (s_cols,s_cols);
@@ -727,7 +727,7 @@ static void get_final_graph (int msize1, int **matrix,  bool **matrix2,struct ed
 void compare_sequences(char **sequences)
 {
 	int i,p,j,curelement1=0;
-	uglyTime("compare whole start", i);
+	/*uglyTime("compare whole start", i);*/
 	AllocArray (IsLengthEnough, s_rows);
 	for (i=0; i<s_rows; i++)
 		IsLengthEnough[i] = TRUE;

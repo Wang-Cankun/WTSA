@@ -88,7 +88,7 @@ void make_graph (const char* fn1)
 			cnt_1++;
 		}
 	}
-	uglyTime("graph1", s_rows);
+	/*uglyTime("graph1", s_rows);*/
         /*if there is not enough information, print the error message and exit */
 	if (cnt_1 == rows) 
         {
@@ -100,7 +100,7 @@ void make_graph (const char* fn1)
 		}
 		exit(1);
         }	
-	uglyTime("graph2", s_rows);
+	/*uglyTime("graph2", s_rows);*/
 	/* edge_ptr describe edges */
 	AllocArray(edge_list, HEAP_SIZE);
         /* Allocating heap structure */
@@ -127,7 +127,7 @@ void make_graph (const char* fn1)
 					fh_insert_fixed(heap, edge_ptr, cur_min);
 				}	
 	}
-	uglyTime("graph3", s_rows);
+	/*uglyTime("graph3", s_rows);*/
         rec_num = heap->fh_n;
 	if (rec_num == 0)
 	{
@@ -135,6 +135,7 @@ void make_graph (const char* fn1)
 		if (all_id > 0)
 		{
 			print_params(fw1);
+			uglyTime("report2%d", extend_len);
 			j = report_closures(fw1,all,all_id,anno);
 		}	
                 exit(1);
@@ -148,10 +149,10 @@ void make_graph (const char* fn1)
 	progress("\nMotif finding started");
 	n_blocks = cluster(fw1,edge_list,rec_num);
         /*fflush(fw);*/
-	uglyTime("%d Motif seeds are written to ", n_blocks);
-	if (po->no_enhance && po->MOTIFLENGTH == po->Up)	uglyTime("\n%d Motifs are written to %s", n_blocks, fn1);
-        /* clean up */
-	if ((po->no_enhance || po->FastVersion) && (po->MOTIFLENGTH == po->Up))
+	
+
+	/* clean up */
+	if ((po->no_enhance || po->FastVersion) && (po->MOTIFLENGTH == po->Up)&& extend_len>0)
 	{
 		for (i=0; i<rec_num; i++)
 			free(edge_list[i]);
@@ -163,8 +164,10 @@ void make_graph (const char* fn1)
 		}
 		free(arr_c);
 		free(arr_c1);
-		uglyTime("graph4", s_rows);
+		
 	}
+	if (po->no_enhance && po->MOTIFLENGTH == po->Up && extend_len>0)	uglyTime("\nMotif length extended to %d\n %d Motifs are written to %s",extend_len+po->MOTIFLENGTH, n_blocks, fn1);
+        
 }
 
 /***************************************************************************/

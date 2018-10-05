@@ -1119,7 +1119,7 @@ discrete **get_closure_matrix_1 (Closures **aa, int closure_id, continuous thres
 			if (po->IS_reference)
 			{
 				/*we clean up the closures which have a similarity score over 0.8 when vertical*/
-				if ((similarity>0.7) && (sameString(aa[ii]->name,aa[jj]->name ))) 
+				if ((similarity>0.5) && (sameString(aa[ii]->name,aa[jj]->name ))) 
 				{
 					IS_duplicate[jj] = TRUE;
 					IC_2 =0;
