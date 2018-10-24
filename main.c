@@ -44,8 +44,6 @@ int main(int argc, char* argv[])
 	                init_dis();
 			po->no_enhance = TRUE;
 	        make_graph (addSuffix(po->FN, ".closures"));
-						extend_len = 1;
-			make_graph (addSuffix(po->FN, ".closures"));
 		}
 	}
 	else
@@ -53,7 +51,7 @@ int main(int argc, char* argv[])
 		for (length_motif= po->Low; length_motif< (po->Up+1); length_motif += po->range, po->no_enhance = FALSE , po->middle_enhance = FALSE)
 		{
 			po->MOTIFLENGTH = length_motif;   
-			extend_len = 0;
+			/*extend_len = 0;*/
 			/* compare the input sequences in fasta format */
 			compare_sequences(sequences);
 			init_dis();
@@ -74,9 +72,9 @@ int main(int argc, char* argv[])
             init_dis();
 			/*uglyTime("init_dis2", s_rows);*/
 	        make_graph (addSuffix(po->FN, ".closures"));
-			extend_len = 1;
+			/*extend_len = 1;
 			init_dis();
-			make_graph (addSuffix(po->FN, ".closures"));
+			make_graph (addSuffix(po->FN, ".closures"));*/
 			/*uglyTime("compare_sequences2", s_rows);*/
 		}
 	}
