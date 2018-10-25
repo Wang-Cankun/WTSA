@@ -8,7 +8,7 @@
 /*************************************************************************/
 void print_params(FILE *fw1)
 {
-        fprintf(fw1, "#########################################\n#                                       #\n");
+       /* fprintf(fw1, "#########################################\n#                                       #\n");
         fprintf(fw1, "#\tBoBro version %.2f output\t#\n", VER);
         fprintf(fw1, "#                                       #\n#########################################\n");
         fprintf(fw1, "\n****************************************\n");
@@ -30,7 +30,7 @@ void print_params(FILE *fw1)
 	for (i=0;i<s_rows;i++)
 	{
 		/*fprintf (fw1,"%s\t\t%d\n",SequenceInfo[i],(s_col[i]+po->MOTIFLENGTH-1));*/
-		fprintf (fw1,"%s\t\t%d\n",SequenceInfo[i],promoter_length[i]);
+		/*fprintf (fw1,"%s\t\t%d\n",SequenceInfo[i],promoter_length[i]);
 	}	
 	
         fprintf(fw1, "\n****************************************\n");
@@ -72,7 +72,7 @@ void print_params(FILE *fw1)
 		if (po->mirror) fprintf(fw1, "Mirror pattern of motif (-M)\tOn\n");
 		if (po->FastVersion) fprintf(fw1, "Fasta version (-F)\tOn\n");
 	}
-        fprintf(fw1, "\n");
+        fprintf(fw1, "\n");*/
 }
 /*************************************************************************/
 int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
@@ -87,7 +87,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
         char **clo_TF;
 	char **sequences_closures;
 	/*num = MIN(num, po->RPT_BLOCK);*/
-	
+	fprintf (fw1,"MotifNumber\tSeq\tstart\tend\tMotif\t\tScore\tInfo\n");
         while (ii< num && closure_output < po->RPT_BLOCK)
         {
                 if (IS_duplicate[ii]) 
@@ -102,25 +102,25 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 			continue;
 		}
 		closure_output++;
-		fprintf (fw1,"\n\n*********************************************************\n");
+		/*fprintf (fw1,"\n\n*********************************************************\n");
                 fprintf (fw1," Candidate Motif %3d\n",closure_output);
                 fprintf (fw1,"*********************************************************\n\n");
                 fprintf (fw1," Motif length: %d\n Motif number: %d\n Seed number: %d\n Motif Pvalue: %3.4LG (%ld)\n\n",cc[ii]->length+extend_len, cc[ii]->closure_rows, cc[ii]->size, cc[ii]->significance, cc[ii]->pvalue);
-		/*long double evalue;
+		*//*long double evalue;
 		evalue = cc[ii]->significance * cc[ii]->closure_rows;
 		fprintf (fw1," Motif Evalue: %3.4LG \n",evalue);*/
 		
-                if (po->zscore) fprintf (fw1," Seed Enrichment: %3.2f (%2.1f %2.5f)\n Seed Zscore: %3.2f\n",cc[ii]->enrich,cc[ii]->motif_known, cc[ii]->motif_background_norm, cc[ii]->zscore);
+                /*if (po->zscore) fprintf (fw1," Seed Enrichment: %3.2f (%2.1f %2.5f)\n Seed Zscore: %3.2f\n",cc[ii]->enrich,cc[ii]->motif_known, cc[ii]->motif_background_norm, cc[ii]->zscore);
                 fprintf (fw1,"\n------------------- Motif Seed------------------\n");
-
+*/
                 /*if (po->ID) fprintf (fw1,"#Seq\tposi\tID\tMotif\t\tScore\tInfo\tAnnotation\n");
 		else fprintf (fw1,"#Seq\tposi\tMotif\t\tScore\tInfo\n");*/
-		for (jj=0; jj<cc[ii]->size; jj++) 
+		/*for (jj=0; jj<cc[ii]->size; jj++) 
 		{
 			for (kk=0;kk<cc[ii]->length+extend_len;kk++)
 				fprintf (fw1, "%c", cc[ii]->seed[jj][kk]);
 			fprintf (fw1,"\n");
-		}	
+		}	*/
                 /*int i3 = get_num_TF (cc[ii]);
                 clo_TF =alloc2c (i3,10);
                 i3 = 0;
@@ -159,7 +159,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
                         fprintf (fw1,"\n");
                 }*/
 		
-		fprintf (fw1,"\n------------------- Position weight matrix------------------\n");
+		/*fprintf (fw1,"\n------------------- Position weight matrix------------------\n");*/
 		/*for (jj=1;jj<5;jj++)
 		{
 			if (jj==1) fprintf (fw1, "A\t");
@@ -172,7 +172,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 			}
 			fprintf (fw1, "\n");
 		}*/
-		for (kk=0;kk<cc[ii]->length;kk++)
+		/*for (kk=0;kk<cc[ii]->length;kk++)
 			fprintf(fw1,"\t%d",kk+1);
 		fprintf (fw1,"\n");
 		for (jj=1;jj<5;jj++)
@@ -234,9 +234,9 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 			fprintf (fw1,"\n");
 		}	
 
-                fprintf (fw1,"\n------------------- Aligned Motif ------------------\n");
-                if (po->ID) fprintf (fw1,"#Motif\tSeq\tposi\tID\tMotif\t\tScore\tInfo\tAnnotation\n");
-		else fprintf (fw1,"#Motif\tSeq\tstart\tend\tMotif\t\tScore\tInfo\n");
+                fprintf (fw1,"\n------------------- Aligned Motif ------------------\n");*/
+                /*if (po->ID) fprintf (fw1,"Motif\tSeq\tposi\tID\tMotif\t\tScore\tInfo\tAnnotation\n");
+		else fprintf (fw1,"Motif\tSeq\tstart\tend\tMotif\t\tScore\tInfo\n");*/
 
                 int i3 = get_num_TF (cc[ii]);
                 clo_TF =alloc2c (i3,10);
@@ -336,7 +336,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 			print_operons (fw1, sequences_closures, genome,cc[ii]->closure_rows,oper_num_all);
 		}
 		ii++;
-                fprintf (fw1,"----------------------------------------------------\n");
+                /*fprintf (fw1,"----------------------------------------------------\n");*/
         }
         return closure_output;
 }
