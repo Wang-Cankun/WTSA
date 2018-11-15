@@ -94,13 +94,34 @@ continuous binomial14[] ={
 ,5.5
 ,6.8
 ,8.4};
-        for(i=0;i<motif_length;i++){
-		if(pos1+i<MAX_SEQUENCE_LENGTH){
+
+ for(i=0;i<motif_length;++i){
+	if(pos1+i<MAX_SEQUENCE_LENGTH){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
-		}
 	}
+}
+/*
+num = fre_matrix[seq2][seq_matrix[seq1][pos1+1]][pos2+1] 
++ fre_matrix[seq2][seq_matrix[seq1][pos1+2]][pos2+2]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+3]][pos2+3]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+4]][pos2+4]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+5]][pos2+5]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+6]][pos2+6]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+7]][pos2+7]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+8]][pos2+8]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+9]][pos2+9]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+10]][pos2+10]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+11]][pos2+11]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+12]][pos2+12]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+13]][pos2+13]
++ fre_matrix[seq2][seq_matrix[seq1][pos1+14]][pos2+14];
+*/
+if(num < 8){
+	return 0;
 	
+}else {
         return (binomial14[(int)num]);
+	}
 }
 
 /************************************************************************/
@@ -234,7 +255,11 @@ double binomial14[] ={
 	if(max2==1){num=0.0;}*/
 	
 	/*printf("%f\t%d\t\n",num,max2);*/
-	return binomial14[(int)num];
+	if(num < 8){
+	return 0;
+	}else {
+        return (binomial14[(int)num]);
+	}
 }
 
 /* C function to find maximum in arr[] of size n*/

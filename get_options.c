@@ -124,15 +124,17 @@ static void init_options ()
 	po->FastVersion = FALSE;
 	po->no_enhance = FALSE;
 	po->SequenceWeight = FALSE;
+	/*po->thre = 0.75;*/
 	po->thre = 0.75;
 	po->thre_pvalue = 0.05;
 	/*po->closure_threshold = 0.7;*/
-	po->closure_threshold = 0.4;
+	po->closure_threshold = 0.2;
 	po->range =1;
 	po->closure_enlarge_times = 3;
-	po->conserve_threshold = 9;
+	po->conserve_threshold = 10;
         po->threshold_e2 = 6;
 	po->zscore = FALSE;
+
 	po->conserve_background = 0.95;
 	po->zscore_thre = 0;
 	po->PalinLength = 30;

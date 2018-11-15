@@ -451,15 +451,43 @@ void read_sequences(FILE* fp1 )
 	for (i=0;i<s_rows;i++)
 	{
 		fre_matrix[i] = alloc2d (4, s_cols);
-		for (j=0;j<4;j++)
-			for (k=0;k<s_cols;k++)
+		for (j=0;j<4;j++){
+			for (k=0;k<s_cols;k++){
 				fre_matrix[i][j][k] = 0;
+                        }
+                }
                 for (k=0;k<(s_cols-8);k++)
                 {
 			fre_matrix[i][seq_matrix[i][k]][k] = 1;
                 }
 	}
-
+        
+/*
+        short num_matrix[1000][1000][MAX_SEQUENCE_LENGTH][MAX_SEQUENCE_LENGTH];
+        printf("%d\t%d\t",s_rows,MAX_SEQUENCE_LENGTH);
+        int p;
+        int q;
+        for (i=0;i<s_rows;i++)
+	{
+		for (p=0;p<s_rows;p++){
+                        for (j=0;j<MAX_SEQUENCE_LENGTH;j++){
+                                for (q=0;q<MAX_SEQUENCE_LENGTH;q++){
+                                        num_matrix[i][p][q][j] = 0;
+                                }
+                        }
+                }
+	}*/
+/*
+        for (i=0;i<s_rows;i++)
+	{
+		for (p=i;p<s_rows;p++){
+                        for (j=0;j<s_col[i];j++){
+                                for (q=0;q<s_col[p];q++){
+                                        num_matrix[i][seq_matrix[p][q]][j] = 1;
+                                }
+                        }
+                }
+	}*/
         /*the markov processing, generate a markov matrix so that we can simulate sequences*/
         p_markov = markov(sequences,s_rows);
         td_markov = d_markov(sequences,s_rows);
