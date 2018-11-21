@@ -94,13 +94,13 @@ continuous binomial14[] ={
 ,5.5
 ,6.8
 ,8.4};
-
+/*
  for(i=0;i<motif_length;++i){
 	if(pos1+i<MAX_SEQUENCE_LENGTH){
 		num+=fre_matrix[seq2][seq_matrix[seq1][pos1+i]][pos2+i];
 	}
 }
-/*
+*/
 num = fre_matrix[seq2][seq_matrix[seq1][pos1+1]][pos2+1] 
 + fre_matrix[seq2][seq_matrix[seq1][pos1+2]][pos2+2]
 + fre_matrix[seq2][seq_matrix[seq1][pos1+3]][pos2+3]
@@ -115,9 +115,9 @@ num = fre_matrix[seq2][seq_matrix[seq1][pos1+1]][pos2+1]
 + fre_matrix[seq2][seq_matrix[seq1][pos1+12]][pos2+12]
 + fre_matrix[seq2][seq_matrix[seq1][pos1+13]][pos2+13]
 + fre_matrix[seq2][seq_matrix[seq1][pos1+14]][pos2+14];
-*/
+
 if(num < 8){
-	return 0;
+	return 0.0;
 	
 }else {
         return (binomial14[(int)num]);

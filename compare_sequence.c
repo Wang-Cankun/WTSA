@@ -186,8 +186,11 @@ static void pairwise_comparison_first ( bool **matrix3, int **matrix, bool *matc
 					else*/ d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					
 					/* set a threshold for d1 */
-					if (d1[j][q] ==0.0) {continue;}
-					if (max2==1) {d2[j][q]=0.0;}
+					if (d1[j][q] < 1) {
+						continue;
+					}
+					
+					if (max_all[p]==1) {d2[j][q]=0.0;}
 					else {
 						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf((float)height_matrix[i][j])/max_all[i]+log1pf((float)height_matrix[p][q])/max_all[p]);
 						/*d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q])* (log1pf(height_matrix[i][j])/logf(max1)+log1pf(height_matrix[p][q])/logf(max2));*/
@@ -298,14 +301,18 @@ static void pairwise_comparison_second ( bool **matrix3, int **matrix, int **mat
 					if (matrix3[p][q]) continue; /*check matrix_no_continuous_equal*/
 					if (q==j && i==p)  {d1[j][q]=0; continue;}
 
-					/*if (j>0 && q>0 && !matrix3[p][q-1] && !matrix3[i][j-1]) d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
+					/*if (j>0 && q>0 && !matrix3[p][q-1] && !matrix3[i][j-1]) 
+					{ 
+						d1[j][q] = d1[j-1][q-1] - fre_matrix[p][seq_matrix[i][j-1]][q-1] + fre_matrix[p][seq_matrix[i][j+po->MOTIFLENGTH-1]][q+po->MOTIFLENGTH-1];
+					}
 					else 
 					{*/
 						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 					/*}*/
 					/*set a threshold for d1*/
-					if (d1[j][q] ==0.0)  continue;
-						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
+					if (d1[j][q] <1)  {continue;}
+					else {d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);}
+						
 					/*set a threshold for d2*/
 					if (d2[j][q] == 0.0) { d2[j][q]=0; continue;}
 
@@ -454,6 +461,7 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 					}
 				for(q=0;q<s_col[p];q++)
 				{
+					
 					if (matrix3[p][q])  continue;
 					if (q==j && i==p) { d4[j][q].score = d1[j][q]=0; continue;}
 
@@ -466,14 +474,14 @@ static void  pairwise_comparison_third (bool **matrix3, int **matrix, int **matr
 						d1[j][q]=get_similarity_between_two_patterns (i,p,j,q,po->MOTIFLENGTH);
 						
 					/*}*/
-					if (d1[j][q] ==0.0)
+					if (d1[j][q] < 1)
 					{
 						if ((match[j]) && (match1[q])) continue;
 						else { d4[j][q].score=0; continue;}
 					}
 					else
 						d2[j][q] = improve_similarity_between_two_patterns(i, p, j, q, lower, upper, d1[j][q]);
-					if (d2[j][q] ==0.0)
+					if (d2[j][q] < 1)
 					{
 						if ((match[j]) && (match1[q])) continue;
 						else { /*d4[j][q].score=0;*/ continue;}
