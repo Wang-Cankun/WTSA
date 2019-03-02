@@ -361,7 +361,7 @@ static int post_processing_blocks( FILE *fw1, Block** bb, int num)
 		clo_matr = get_closure_matrix_1 (all, clo_num,po->thre);
 		if (po->IS_reference_H)  printf ("\nClosures/Regulons refinement and expansion\n");
 
-		if (po->no_enhance && extend_len > 0 ) {
+		if (po->no_enhance) {
 			j = report_closures(fw1,all,all_id,anno);
 		}
 

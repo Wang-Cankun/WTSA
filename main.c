@@ -41,15 +41,21 @@ int main(int argc, char* argv[])
 		{
 			po->MOTIFLENGTH = length_motif;   
 			compare_sequences(sequences);
-	                init_dis();
+	        init_dis();
 			po->no_enhance = TRUE;
+			extend_len=0;
+			is_extended=0;
 	        make_graph (addSuffix(po->FN, ".closures"));
+			is_extended=1;
+			make_graph (addSuffix(po->FN, ".closures"));
 		}
 	}
 	else
 	{
 		for (length_motif= po->Low; length_motif< (po->Up+1); length_motif += po->range, po->no_enhance = FALSE , po->middle_enhance = FALSE)
 		{
+			extend_len=2;
+			is_extended=1;
 			po->MOTIFLENGTH = length_motif;   
 			/*extend_len = 0;*/
 			/* compare the input sequences in fasta format */

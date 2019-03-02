@@ -128,13 +128,12 @@ static void init_options ()
 	po->thre = 0.75;
 	po->thre_pvalue = 0.05;
 	/*po->closure_threshold = 0.7;*/
-	po->closure_threshold = 0.2;
+	po->closure_threshold = 0.7;
 	po->range =1;
 	po->closure_enlarge_times = 3;
-	po->conserve_threshold = 8;
+	po->conserve_threshold = 9;
         po->threshold_e2 = 6;
 	po->zscore = FALSE;
-
 	po->conserve_background = 0.95;
 	po->zscore_thre = 0;
 	po->PalinLength = 30;

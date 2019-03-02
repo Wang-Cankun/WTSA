@@ -7,7 +7,7 @@ CC=gcc -g
 
 
 LDFLAGS= -static  -lm 
-CFLAGS=-g -O0 -Wall -ansi -I.  -D VER=$(VER) 
+CFLAGS=-g -O3 -Wall -ansi -I.  -D VER=$(VER) 
 
 
 all: $(PROGS)

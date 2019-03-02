@@ -92,7 +92,7 @@ void make_graph (const char* fn1)
         /*if there is not enough information, print the error message and exit */
 	if (cnt_1 == rows) 
         {
-		printf ("\nSorry, there is no significant Motifs (%d) in your fasta file\n", po->MOTIFLENGTH);
+		printf ("\nSorry, there is no significant Motifs (legnth=%d) in your fasta file\n", po->MOTIFLENGTH);
 		if (all_id > 0)
 		{	
 			print_params(fw1);
@@ -124,6 +124,7 @@ void make_graph (const char* fn1)
 					edge_ptr -> gene_one = i;
 					edge_ptr -> gene_two = j;
 					edge_ptr -> score = cnt;
+					/*printf ("\n%d\t%d\t%d\n", edge_ptr -> gene_one,edge_ptr -> gene_two,edge_ptr -> score);*/
 					fh_insert_fixed(heap, edge_ptr, cur_min);
 				}	
 	}
@@ -131,7 +132,7 @@ void make_graph (const char* fn1)
         rec_num = heap->fh_n;
 	if (rec_num == 0)
 	{
-                printf ("\nSorry, there is no significant Motifs (%d) in your fasta file\n", po->MOTIFLENGTH);
+        printf ("\nSorry, there is no significant Motifs (length = %d) in your fasta file\n", po->MOTIFLENGTH);
 		if (all_id > 0)
 		{
 			print_params(fw1);
@@ -152,8 +153,9 @@ void make_graph (const char* fn1)
 	
 
 	/* clean up */
-	if ((po->no_enhance || po->FastVersion) && (po->MOTIFLENGTH == po->Up)&& extend_len>0)
+	if ((po->no_enhance || po->FastVersion) && (po->MOTIFLENGTH == po->Up)&& is_extended==1)
 	{
+		printf("clean memory\t\n");
 		for (i=0; i<rec_num; i++)
 			free(edge_list[i]);
 		free(edge_list);
@@ -166,7 +168,7 @@ void make_graph (const char* fn1)
 		free(arr_c1);
 		
 	}
-	if (po->no_enhance && po->MOTIFLENGTH == po->Up && extend_len>0)	uglyTime("\nMotif length extended to %d\n %d Motifs are written to %s",extend_len+po->MOTIFLENGTH, n_blocks, fn1);
+	if (po->no_enhance && po->MOTIFLENGTH == po->Up && is_extended==1)	uglyTime("\nMotif length extended to %d\n %d Motifs are written to %s",extend_len+po->MOTIFLENGTH, n_blocks, fn1);
         
 }
 

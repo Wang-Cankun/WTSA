@@ -83,7 +83,7 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 	bool *IS_duplicate;
 	IS_duplicate = clean_up_closures(cc, num, po->closure_threshold);
 
-        int closure_output=0, ii=0, jj=0,kk=0;
+        int closure_output=0, ii=0, jj=0,kk=0,extend_ii=0,extend_jj=0,extend_closure_output=0,total_instance=0;
         char **clo_TF;
 	char **sequences_closures;
 	/*num = MIN(num, po->RPT_BLOCK);*/
@@ -272,7 +272,10 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 				}
 				kkk++;
         	        }
-
+			
+			if(is_extended == 0 && dsItem(cc[ii]->position,jj) > 0) {
+				total_instance++;
+			}
 			kkk=0;
 			if (positive >= negative)
 			{
@@ -338,6 +341,54 @@ int report_closures(FILE *fw1, Closures** cc, int num, Annotation** anno)
 		ii++;
                 /*fprintf (fw1,"----------------------------------------------------\n");*/
         }
+	int instance_length[total_instance];
+	int instance_seq[total_instance];
+	int instance_length_index = 0,compare_index=0,temp_overlap=0;
+	if (is_extended == 0){
+		while (extend_ii< num && extend_closure_output < po->RPT_BLOCK)
+		{
+			if (IS_duplicate[extend_ii]) 
+			{
+				printf ("%d is duplicate\n", ii);
+				extend_ii++;
+				continue;
+			}
+			if (cc[extend_ii]->zscore < po->zscore_thre && po->zscore == TRUE)
+			{
+				extend_ii++;
+				continue;
+			}
+			for (extend_jj=0; extend_jj<cc[extend_ii]->closure_rows; extend_jj++)
+			{
+				if(dsItem(cc[extend_ii]->position,extend_jj) > 0)
+				{
+					instance_length[instance_length_index] = dsItem(cc[extend_ii]->position,extend_jj);
+					instance_seq[instance_length_index] = dsItem(cc[ii]->sequence,jj);
+					instance_length_index++;
+					
+				}
+			}
+			extend_closure_output++;
+			extend_ii++;
+		}
+		for (instance_length_index=0; instance_length_index < total_instance-1;instance_length_index++)
+		{
+			for (compare_index=instance_length_index; compare_index < total_instance;compare_index++)
+			{
+				if(instance_seq[compare_index] == instance_seq[instance_length_index]) 
+				{
+					temp_overlap = abs(instance_length[compare_index] - instance_length[instance_length_index]);
+					printf("%d\t\n",temp_overlap);
+				}
+				
+			}
+		}
+
+	extend_len=2;
+
+
+	}
+
         return closure_output;
 }
 
@@ -762,7 +813,7 @@ void print_bc (FILE *fw1, Closures **cc, int num_cc, Block* b, int num)
         AllocArray (randomdata,length_ave);
 	discrete *randomdata_number;
         randomdata_number = change_AGCT_to_num(randomdata,length_ave);
-        for (Rt=0;Rt<3000*simulation;Rt++)
+        for (Rt=0;Rt<4000*simulation;Rt++)
 	{
                 for (i=0;i<4;i++)
 		{

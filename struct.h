@@ -95,7 +95,8 @@ char **locus_id;
 bool *IsLengthEnough;
 long sum_genome;
 char **SequenceInfo;
-/*int extend_len;*/
+int extend_len;
+int is_extended; 
 
 /*sequence weight*/
 continuous *SequenceWeight;
