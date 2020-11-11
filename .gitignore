@@ -8,3 +8,7 @@
 *.txt
 *.fa.closures
 *.fa.closures
+*.bam
+*.bam.*
+*.fna
+*.fna.fai
